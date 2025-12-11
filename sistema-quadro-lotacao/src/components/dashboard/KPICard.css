@@ -1,0 +1,221 @@
+.kpi-card {
+  background: white;
+  border-radius: var(--sds-border-radius-lg);
+  box-shadow: var(--sds-shadow);
+  border: 1px solid var(--sds-gray-200);
+  overflow: hidden;
+  transition: all var(--sds-transition-base);
+  position: relative;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card--clickable {
+  cursor: pointer;
+}
+
+.kpi-card--clickable:hover {
+  box-shadow: var(--sds-shadow-md);
+  transform: translateY(-2px);
+}
+
+.kpi-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-spacing-3);
+  padding: var(--sds-spacing-4) var(--sds-spacing-5);
+  border-bottom: 1px solid var(--sds-gray-200);
+  background-color: var(--sds-gray-50);
+}
+
+.kpi-card__icon {
+  font-size: var(--sds-font-size-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--sds-border-radius-md);
+  background-color: var(--kpi-color, var(--sds-primary));
+  color: white;
+  opacity: 0.9;
+}
+
+.kpi-card__title {
+  font-size: var(--sds-font-size-base);
+  font-weight: 600;
+  color: var(--sds-gray-800);
+  margin: 0;
+  flex: 1;
+}
+
+.kpi-card__content {
+  padding: var(--sds-spacing-5);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.kpi-card__value {
+  font-size: var(--sds-font-size-3xl);
+  font-weight: 700;
+  color: var(--kpi-color, var(--sds-primary));
+  margin-bottom: var(--sds-spacing-2);
+  line-height: 1.2;
+}
+
+.kpi-card__label {
+  font-size: var(--sds-font-size-sm);
+  color: var(--sds-gray-600);
+  font-weight: 500;
+  margin-bottom: var(--sds-spacing-3);
+}
+
+.kpi-card__trend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-spacing-1);
+  font-size: var(--sds-font-size-xs);
+  font-weight: 500;
+  padding: var(--sds-spacing-1) var(--sds-spacing-2);
+  border-radius: var(--sds-border-radius-sm);
+  background-color: var(--sds-gray-100);
+}
+
+.kpi-card__trend--up {
+  color: var(--sds-success);
+  background-color: var(--sds-success-light, #d4edda);
+}
+
+.kpi-card__trend--down {
+  color: var(--sds-danger);
+  background-color: var(--sds-danger-light, #f8d7da);
+}
+
+.kpi-card__trend--stable {
+  color: var(--sds-info);
+  background-color: var(--sds-info-light, #d1ecf1);
+}
+
+.kpi-card__trend-icon {
+  font-size: var(--sds-font-size-sm);
+}
+
+.kpi-card__trend-value {
+  font-weight: 600;
+}
+
+.kpi-card__trend-period {
+  opacity: 0.8;
+}
+
+.kpi-card__status-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--kpi-color, var(--sds-primary));
+}
+
+/* Status variants */
+.kpi-card--success {
+  --kpi-color: var(--sds-success, #28A745);
+}
+
+.kpi-card--success .kpi-card__status-indicator {
+  background-color: var(--sds-success, #28A745);
+}
+
+.kpi-card--warning {
+  --kpi-color: var(--sds-warning, #FFC107);
+}
+
+.kpi-card--warning .kpi-card__status-indicator {
+  background-color: var(--sds-warning, #FFC107);
+}
+
+.kpi-card--error {
+  --kpi-color: var(--sds-danger, #DC3545);
+}
+
+.kpi-card--error .kpi-card__status-indicator {
+  background-color: var(--sds-danger, #DC3545);
+}
+
+.kpi-card--info {
+  --kpi-color: var(--sds-info, #17A2B8);
+}
+
+.kpi-card--info .kpi-card__status-indicator {
+  background-color: var(--sds-info, #17A2B8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .kpi-card {
+    min-height: 140px;
+  }
+  
+  .kpi-card__header {
+    padding: var(--sds-spacing-3) var(--sds-spacing-4);
+  }
+  
+  .kpi-card__content {
+    padding: var(--sds-spacing-4);
+  }
+  
+  .kpi-card__value {
+    font-size: var(--sds-font-size-2xl);
+  }
+  
+  .kpi-card__icon {
+    width: 28px;
+    height: 28px;
+    font-size: var(--sds-font-size-lg);
+  }
+}
+
+/* Animation for value changes */
+@keyframes kpi-value-update {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.kpi-card__value.updating {
+  animation: kpi-value-update 0.3s ease-in-out;
+}
+
+/* Loading state */
+.kpi-card--loading {
+  opacity: 0.7;
+}
+
+.kpi-card--loading .kpi-card__value,
+.kpi-card--loading .kpi-card__label {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+  border-radius: var(--sds-border-radius-sm);
+  color: transparent;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

@@ -1,0 +1,1 @@
+export { QuadroManagement } from './QuadroManagement.js';

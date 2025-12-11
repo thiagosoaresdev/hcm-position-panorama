@@ -1,0 +1,312 @@
+/* VagaForm Modal Styles */
+.vaga-form__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--sds-spacing-4);
+  animation: fadeIn var(--sds-transition-base);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.vaga-form__modal {
+  background: white;
+  border-radius: var(--sds-border-radius-lg);
+  box-shadow: var(--sds-shadow-xl);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn var(--sds-transition-base);
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header */
+.vaga-form__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sds-spacing-6) var(--sds-spacing-6) var(--sds-spacing-4);
+  border-bottom: 1px solid var(--sds-gray-200);
+}
+
+.vaga-form__title {
+  font-size: var(--sds-font-size-xl);
+  font-weight: 600;
+  color: var(--sds-gray-900);
+  margin: 0;
+}
+
+.vaga-form__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: var(--sds-border-radius);
+  cursor: pointer;
+  color: var(--sds-gray-500);
+  font-size: var(--sds-font-size-lg);
+  transition: all var(--sds-transition-fast);
+}
+
+.vaga-form__close-btn:hover {
+  background-color: var(--sds-gray-100);
+  color: var(--sds-gray-700);
+}
+
+.vaga-form__close-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form */
+.vaga-form__form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.vaga-form__content {
+  flex: 1;
+  padding: var(--sds-spacing-6);
+  overflow-y: auto;
+  display: grid;
+  gap: var(--sds-spacing-5);
+}
+
+/* Form Fields */
+.vaga-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-spacing-2);
+}
+
+.vaga-form__label {
+  font-size: var(--sds-font-size-sm);
+  font-weight: 500;
+  color: var(--sds-gray-700);
+}
+
+.vaga-form__input,
+.vaga-form__select,
+.vaga-form__textarea {
+  padding: var(--sds-spacing-3);
+  border: 1px solid var(--sds-gray-300);
+  border-radius: var(--sds-border-radius);
+  font-size: var(--sds-font-size-base);
+  font-family: inherit;
+  transition: all var(--sds-transition-fast);
+  background-color: white;
+}
+
+.vaga-form__input:focus,
+.vaga-form__select:focus,
+.vaga-form__textarea:focus {
+  outline: none;
+  border-color: var(--sds-primary);
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+}
+
+.vaga-form__input:read-only {
+  background-color: var(--sds-gray-50);
+  color: var(--sds-gray-600);
+}
+
+.vaga-form__input--error,
+.vaga-form__select--error,
+.vaga-form__textarea--error {
+  border-color: var(--sds-danger);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.vaga-form__textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.vaga-form__help {
+  font-size: var(--sds-font-size-xs);
+  color: var(--sds-gray-600);
+  margin-top: var(--sds-spacing-1);
+}
+
+.vaga-form__error {
+  font-size: var(--sds-font-size-xs);
+  color: var(--sds-danger);
+  margin-top: var(--sds-spacing-1);
+}
+
+.vaga-form__warning {
+  background-color: var(--sds-warning-light);
+  color: var(--sds-warning-dark);
+  padding: var(--sds-spacing-3);
+  border-radius: var(--sds-border-radius);
+  font-size: var(--sds-font-size-sm);
+  margin-top: var(--sds-spacing-2);
+  border: 1px solid var(--sds-warning);
+}
+
+/* Footer */
+.vaga-form__footer {
+  display: flex;
+  gap: var(--sds-spacing-3);
+  justify-content: flex-end;
+  padding: var(--sds-spacing-4) var(--sds-spacing-6) var(--sds-spacing-6);
+  border-top: 1px solid var(--sds-gray-200);
+  background-color: var(--sds-gray-50);
+}
+
+/* Buttons */
+.vaga-form__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-spacing-2);
+  padding: var(--sds-spacing-3) var(--sds-spacing-5);
+  border: 1px solid transparent;
+  border-radius: var(--sds-border-radius);
+  font-size: var(--sds-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--sds-transition-fast);
+  min-width: 120px;
+  height: 44px;
+}
+
+.vaga-form__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.vaga-form__btn--primary {
+  background-color: var(--sds-primary);
+  color: white;
+  border-color: var(--sds-primary);
+}
+
+.vaga-form__btn--primary:hover:not(:disabled) {
+  background-color: var(--sds-primary-dark);
+  border-color: var(--sds-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.vaga-form__btn--secondary {
+  background-color: white;
+  color: var(--sds-gray-700);
+  border-color: var(--sds-gray-300);
+}
+
+.vaga-form__btn--secondary:hover:not(:disabled) {
+  background-color: var(--sds-gray-50);
+  border-color: var(--sds-gray-400);
+}
+
+/* Loading Spinner */
+.vaga-form__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .vaga-form__backdrop {
+    padding: var(--sds-spacing-2);
+  }
+  
+  .vaga-form__modal {
+    max-height: 95vh;
+  }
+  
+  .vaga-form__header {
+    padding: var(--sds-spacing-4);
+  }
+  
+  .vaga-form__content {
+    padding: var(--sds-spacing-4);
+    gap: var(--sds-spacing-4);
+  }
+  
+  .vaga-form__footer {
+    padding: var(--sds-spacing-3) var(--sds-spacing-4) var(--sds-spacing-4);
+    flex-direction: column-reverse;
+  }
+  
+  .vaga-form__btn {
+    width: 100%;
+  }
+  
+  .vaga-form__title {
+    font-size: var(--sds-font-size-lg);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .vaga-form__modal {
+    max-width: 500px;
+  }
+}
+
+/* Focus Management */
+.vaga-form__modal:focus {
+  outline: none;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .vaga-form__input,
+  .vaga-form__select,
+  .vaga-form__textarea {
+    border-width: 2px;
+  }
+  
+  .vaga-form__btn {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .vaga-form__backdrop,
+  .vaga-form__modal {
+    animation: none;
+  }
+  
+  .vaga-form__btn:hover:not(:disabled) {
+    transform: none;
+  }
+}

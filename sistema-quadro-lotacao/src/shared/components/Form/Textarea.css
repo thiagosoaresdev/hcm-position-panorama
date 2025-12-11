@@ -1,0 +1,98 @@
+/* SDS Textarea Component */
+.sds-textarea {
+  font-family: var(--sds-font-family);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--sds-gray-900);
+  background-color: white;
+  border: 1px solid var(--sds-gray-300);
+  border-radius: var(--sds-border-radius);
+  transition: all var(--sds-transition-fast);
+  outline: none;
+  width: 100%;
+  min-height: 6rem;
+}
+
+.sds-textarea:focus {
+  border-color: var(--sds-primary);
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+}
+
+.sds-textarea:disabled {
+  background-color: var(--sds-gray-100);
+  color: var(--sds-gray-500);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sds-textarea::placeholder {
+  color: var(--sds-gray-500);
+  opacity: 1;
+}
+
+/* Sizes */
+.sds-textarea--sm {
+  padding: var(--sds-spacing-2) var(--sds-spacing-3);
+  font-size: var(--sds-font-size-sm);
+  min-height: 4rem;
+}
+
+.sds-textarea--md {
+  padding: var(--sds-spacing-3) var(--sds-spacing-4);
+  font-size: var(--sds-font-size-base);
+  min-height: 6rem;
+}
+
+.sds-textarea--lg {
+  padding: var(--sds-spacing-4) var(--sds-spacing-5);
+  font-size: var(--sds-font-size-lg);
+  min-height: 8rem;
+}
+
+/* Error state */
+.sds-textarea--error {
+  border-color: var(--sds-danger);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.sds-textarea--error:focus {
+  border-color: var(--sds-danger);
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+/* Full width */
+.sds-textarea--full-width {
+  width: 100%;
+}
+
+/* Resize options */
+.sds-textarea--resize-none {
+  resize: none;
+}
+
+.sds-textarea--resize-vertical {
+  resize: vertical;
+}
+
+.sds-textarea--resize-horizontal {
+  resize: horizontal;
+}
+
+.sds-textarea--resize-both {
+  resize: both;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sds-textarea {
+    min-height: 5rem;
+  }
+  
+  .sds-textarea--sm {
+    min-height: 3.5rem;
+  }
+  
+  .sds-textarea--lg {
+    min-height: 6.5rem;
+  }
+}

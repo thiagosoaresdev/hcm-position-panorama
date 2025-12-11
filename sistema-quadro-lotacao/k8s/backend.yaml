@@ -1,0 +1,304 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: sistema-quadro-lotacao
+  labels:
+    app: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: sistema-quadro-lotacao/backend:latest
+        ports:
+        - containerPort: 8000
+        env:
+        # Database Configuration
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_PORT
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: DATABASE_PASSWORD
+        - name: DATABASE_SSL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_SSL
+        - name: DATABASE_POOL_MIN
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_POOL_MIN
+        - name: DATABASE_POOL_MAX
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_POOL_MAX
+        
+        # Redis Configuration
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: REDIS_PORT
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: REDIS_PASSWORD
+        - name: REDIS_DB
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: REDIS_DB
+        - name: REDIS_TTL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: REDIS_TTL
+        
+        # Application Configuration
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: NODE_ENV
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: PORT
+        - name: API_BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: API_BASE_URL
+        
+        # Senior Platform APIs
+        - name: PLATFORM_AUTH_URL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: PLATFORM_AUTH_URL
+        - name: PLATFORM_AUTHZ_URL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: PLATFORM_AUTHZ_URL
+        - name: PLATFORM_NOTIFICATIONS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: PLATFORM_NOTIFICATIONS_URL
+        - name: PLATFORM_CLIENT_ID
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: PLATFORM_CLIENT_ID
+        - name: PLATFORM_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: PLATFORM_CLIENT_SECRET
+        
+        # JWT Configuration
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: JWT_SECRET
+        - name: JWT_EXPIRES_IN
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: JWT_EXPIRES_IN
+        - name: JWT_REFRESH_EXPIRES_IN
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: JWT_REFRESH_EXPIRES_IN
+        
+        # RH Legado Integration
+        - name: RH_LEGADO_API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: RH_LEGADO_API_URL
+        - name: RH_LEGADO_WEBHOOK_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: RH_LEGADO_WEBHOOK_SECRET
+        
+        # Logging
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: LOG_LEVEL
+        - name: LOG_FORMAT
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: LOG_FORMAT
+        
+        # Security
+        - name: CORS_ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: CORS_ORIGIN
+        - name: RATE_LIMIT_WINDOW_MS
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: RATE_LIMIT_WINDOW_MS
+        - name: RATE_LIMIT_MAX_REQUESTS
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: RATE_LIMIT_MAX_REQUESTS
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
+        
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        # Security context
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+
+      # Init container for database migrations
+      initContainers:
+      - name: migrate
+        image: sistema-quadro-lotacao/backend:latest
+        command: ["node", "src/core/database/migrate.js"]
+        env:
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_PORT
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: sistema-quadro-lotacao-config
+              key: DATABASE_NAME
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sistema-quadro-lotacao-secrets
+              key: DATABASE_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: sistema-quadro-lotacao
+  labels:
+    app: backend
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-hpa
+  namespace: sistema-quadro-lotacao
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

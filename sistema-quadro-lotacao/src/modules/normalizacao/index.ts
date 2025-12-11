@@ -1,0 +1,1 @@
+export { NormalizacaoManagement } from './NormalizacaoManagement.js';

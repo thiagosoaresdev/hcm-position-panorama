@@ -1,0 +1,267 @@
+/* StatusBadge Styles */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sds-spacing-1);
+  border-radius: var(--sds-border-radius);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--sds-transition-fast);
+}
+
+/* Size Variants */
+.status-badge--sm {
+  padding: var(--sds-spacing-1) var(--sds-spacing-2);
+  font-size: var(--sds-font-size-xs);
+  gap: var(--sds-spacing-1);
+}
+
+.status-badge--md {
+  padding: var(--sds-spacing-2) var(--sds-spacing-3);
+  font-size: var(--sds-font-size-sm);
+  gap: var(--sds-spacing-2);
+}
+
+.status-badge--lg {
+  padding: var(--sds-spacing-3) var(--sds-spacing-4);
+  font-size: var(--sds-font-size-base);
+  gap: var(--sds-spacing-2);
+}
+
+/* Status Variants */
+.status-badge--draft {
+  background-color: var(--sds-gray-100);
+  color: var(--sds-gray-700);
+  border: 1px solid var(--sds-gray-300);
+}
+
+.status-badge--pending {
+  background-color: var(--sds-warning-light);
+  color: var(--sds-warning-dark);
+  border: 1px solid var(--sds-warning);
+  position: relative;
+}
+
+.status-badge--approved {
+  background-color: var(--sds-success-light);
+  color: var(--sds-success-dark);
+  border: 1px solid var(--sds-success);
+}
+
+.status-badge--rejected {
+  background-color: var(--sds-danger-light);
+  color: var(--sds-danger-dark);
+  border: 1px solid var(--sds-danger);
+}
+
+/* Icon */
+.status-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.status-badge--sm .status-badge__icon {
+  font-size: var(--sds-font-size-xs);
+}
+
+.status-badge--md .status-badge__icon {
+  font-size: var(--sds-font-size-sm);
+}
+
+.status-badge--lg .status-badge__icon {
+  font-size: var(--sds-font-size-base);
+}
+
+/* Label */
+.status-badge__label {
+  white-space: nowrap;
+  font-weight: inherit;
+}
+
+/* Progress Bar (for pending status) */
+.status-badge__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.status-badge__progress-bar {
+  height: 100%;
+  background-color: var(--sds-warning-dark);
+  transition: width var(--sds-transition-base);
+  position: relative;
+}
+
+.status-badge__progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Hover Effects */
+.status-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.status-badge--draft:hover {
+  background-color: var(--sds-gray-200);
+  border-color: var(--sds-gray-400);
+}
+
+.status-badge--pending:hover {
+  background-color: var(--sds-warning);
+  color: white;
+}
+
+.status-badge--approved:hover {
+  background-color: var(--sds-success);
+  color: white;
+}
+
+.status-badge--rejected:hover {
+  background-color: var(--sds-danger);
+  color: white;
+}
+
+/* Accessibility */
+.status-badge:focus {
+  outline: 2px solid var(--sds-primary);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .status-badge {
+    border-width: 2px;
+    font-weight: 600;
+  }
+  
+  .status-badge--draft {
+    background-color: white;
+    color: black;
+    border-color: black;
+  }
+  
+  .status-badge--pending {
+    background-color: yellow;
+    color: black;
+    border-color: orange;
+  }
+  
+  .status-badge--approved {
+    background-color: green;
+    color: white;
+    border-color: darkgreen;
+  }
+  
+  .status-badge--rejected {
+    background-color: red;
+    color: white;
+    border-color: darkred;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .status-badge {
+    transition: none;
+  }
+  
+  .status-badge:hover {
+    transform: none;
+  }
+  
+  .status-badge__progress-bar::after {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .status-badge {
+    background-color: transparent !important;
+    color: black !important;
+    border: 1px solid black !important;
+  }
+  
+  .status-badge__progress {
+    display: none;
+  }
+}
+
+/* Dark Mode Support (if implemented) */
+@media (prefers-color-scheme: dark) {
+  .status-badge--draft {
+    background-color: var(--sds-gray-800);
+    color: var(--sds-gray-200);
+    border-color: var(--sds-gray-600);
+  }
+  
+  .status-badge--draft:hover {
+    background-color: var(--sds-gray-700);
+    border-color: var(--sds-gray-500);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .status-badge--lg {
+    padding: var(--sds-spacing-2) var(--sds-spacing-3);
+    font-size: var(--sds-font-size-sm);
+  }
+  
+  .status-badge--md {
+    padding: var(--sds-spacing-1) var(--sds-spacing-2);
+    font-size: var(--sds-font-size-xs);
+  }
+}
+
+/* Animation for pending status */
+.status-badge--pending .status-badge__icon {
+  animation: pendingPulse 2s ease-in-out infinite;
+}
+
+@keyframes pendingPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Special styling for different levels */
+.status-badge[title*="Nível 1"] {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.status-badge[title*="Nível 2"] {
+  background-color: rgba(255, 193, 7, 0.2);
+}
+
+.status-badge[title*="Nível 3"] {
+  background-color: rgba(255, 193, 7, 0.3);
+}
+
+.status-badge[title*="RH"] {
+  background-color: rgba(255, 193, 7, 0.4);
+}

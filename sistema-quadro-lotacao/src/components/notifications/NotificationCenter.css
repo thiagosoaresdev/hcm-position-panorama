@@ -1,0 +1,137 @@
+.notification-center {
+  position: relative;
+}
+
+.notification-center-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preferences-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  color: #666;
+}
+
+.preferences-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.preferences-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.preferences-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.preferences-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f8f9fa;
+}
+
+.preferences-modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.preferences-modal-body {
+  padding: 0;
+  overflow-y: auto;
+  max-height: calc(80vh - 80px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .preferences-modal {
+    width: 95vw;
+    max-height: 90vh;
+  }
+
+  .preferences-modal-header {
+    padding: 16px;
+  }
+
+  .preferences-modal-header h3 {
+    font-size: 16px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .preferences-modal {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .preferences-modal {
+    border: 2px solid #000;
+  }
+
+  .preferences-modal-header h3 {
+    color: #000;
+  }
+}

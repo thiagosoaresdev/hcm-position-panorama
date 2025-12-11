@@ -1,0 +1,267 @@
+/* SDS Button Component */
+.sds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-spacing-2);
+  font-family: var(--sds-font-family);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: var(--sds-border-radius);
+  transition: all var(--sds-transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.sds-button:focus {
+  outline: 2px solid var(--sds-primary);
+  outline-offset: 2px;
+}
+
+.sds-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Sizes */
+.sds-button--sm {
+  padding: var(--sds-spacing-2) var(--sds-spacing-3);
+  font-size: var(--sds-font-size-sm);
+  line-height: 1.25;
+}
+
+.sds-button--md {
+  padding: var(--sds-spacing-3) var(--sds-spacing-4);
+  font-size: var(--sds-font-size-base);
+  line-height: 1.5;
+}
+
+.sds-button--lg {
+  padding: var(--sds-spacing-4) var(--sds-spacing-6);
+  font-size: var(--sds-font-size-lg);
+  line-height: 1.5;
+}
+
+/* Icon only buttons */
+.sds-button--icon-only.sds-button--sm {
+  padding: var(--sds-spacing-2);
+  width: 2rem;
+  height: 2rem;
+}
+
+.sds-button--icon-only.sds-button--md {
+  padding: var(--sds-spacing-3);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.sds-button--icon-only.sds-button--lg {
+  padding: var(--sds-spacing-4);
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Full width */
+.sds-button--full-width {
+  width: 100%;
+}
+
+/* Variants */
+.sds-button--primary {
+  color: white;
+  background-color: var(--sds-primary);
+  border-color: var(--sds-primary);
+}
+
+.sds-button--primary:hover:not(:disabled) {
+  background-color: var(--sds-primary-dark);
+  border-color: var(--sds-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--primary:active:not(:disabled) {
+  background-color: var(--sds-primary-dark);
+  border-color: var(--sds-primary-dark);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.sds-button--secondary {
+  color: var(--sds-gray-700);
+  background-color: var(--sds-gray-100);
+  border-color: var(--sds-gray-300);
+}
+
+.sds-button--secondary:hover:not(:disabled) {
+  color: var(--sds-gray-800);
+  background-color: var(--sds-gray-200);
+  border-color: var(--sds-gray-400);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--secondary:active:not(:disabled) {
+  background-color: var(--sds-gray-300);
+  border-color: var(--sds-gray-400);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.sds-button--success {
+  color: white;
+  background-color: var(--sds-success);
+  border-color: var(--sds-success);
+}
+
+.sds-button--success:hover:not(:disabled) {
+  background-color: var(--sds-success-dark);
+  border-color: var(--sds-success-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--success:active:not(:disabled) {
+  background-color: var(--sds-success-dark);
+  border-color: var(--sds-success-dark);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.sds-button--warning {
+  color: var(--sds-gray-900);
+  background-color: var(--sds-warning);
+  border-color: var(--sds-warning);
+}
+
+.sds-button--warning:hover:not(:disabled) {
+  background-color: var(--sds-warning-dark);
+  border-color: var(--sds-warning-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--warning:active:not(:disabled) {
+  background-color: var(--sds-warning-dark);
+  border-color: var(--sds-warning-dark);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.sds-button--danger {
+  color: white;
+  background-color: var(--sds-danger);
+  border-color: var(--sds-danger);
+}
+
+.sds-button--danger:hover:not(:disabled) {
+  background-color: var(--sds-danger-dark);
+  border-color: var(--sds-danger-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--danger:active:not(:disabled) {
+  background-color: var(--sds-danger-dark);
+  border-color: var(--sds-danger-dark);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.sds-button--info {
+  color: white;
+  background-color: var(--sds-info);
+  border-color: var(--sds-info);
+}
+
+.sds-button--info:hover:not(:disabled) {
+  background-color: var(--sds-info-dark);
+  border-color: var(--sds-info-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--info:active:not(:disabled) {
+  background-color: var(--sds-info-dark);
+  border-color: var(--sds-info-dark);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+.sds-button--outline {
+  color: var(--sds-primary);
+  background-color: transparent;
+  border-color: var(--sds-primary);
+}
+
+.sds-button--outline:hover:not(:disabled) {
+  color: white;
+  background-color: var(--sds-primary);
+  border-color: var(--sds-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--sds-shadow-md);
+}
+
+.sds-button--outline:active:not(:disabled) {
+  background-color: var(--sds-primary-dark);
+  border-color: var(--sds-primary-dark);
+  transform: translateY(0);
+  box-shadow: var(--sds-shadow-sm);
+}
+
+/* Loading state */
+.sds-button--loading {
+  pointer-events: none;
+}
+
+.sds-button__spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: sds-button-spin 1s linear infinite;
+}
+
+.sds-button__text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sds-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sds-button__icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes sds-button-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sds-button {
+    min-height: 44px; /* Touch-friendly minimum */
+  }
+  
+  .sds-button--sm {
+    min-height: 36px;
+  }
+  
+  .sds-button--lg {
+    min-height: 52px;
+  }
+}

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sistema-quadro-lotacao-config
+  namespace: sistema-quadro-lotacao
+data:
+  # Database Configuration
+  DATABASE_HOST: "postgres-service"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "sistema_quadro_lotacao"
+  DATABASE_SSL: "true"
+  DATABASE_POOL_MIN: "2"
+  DATABASE_POOL_MAX: "20"
+  
+  # Redis Configuration
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  REDIS_TTL: "3600"
+  
+  # Application Configuration
+  NODE_ENV: "production"
+  PORT: "8000"
+  API_BASE_URL: "https://quadro-lotacao.senior.com.br/api"
+  
+  # Senior Platform APIs
+  PLATFORM_AUTH_URL: "https://api.senior.com.br/auth"
+  PLATFORM_AUTHZ_URL: "https://api.senior.com.br/authorization"
+  PLATFORM_NOTIFICATIONS_URL: "https://api.senior.com.br/notifications"
+  PLATFORM_CLIENT_ID: "QUADRO_VAGAS_APP"
+  
+  # JWT Configuration
+  JWT_EXPIRES_IN: "1h"
+  JWT_REFRESH_EXPIRES_IN: "7d"
+  
+  # RH Legado Integration
+  RH_LEGADO_API_URL: "https://api.rhlegado.com.br"
+  
+  # Logging
+  LOG_LEVEL: "info"
+  LOG_FORMAT: "json"
+  
+  # Security
+  CORS_ORIGIN: "https://quadro-lotacao.senior.com.br"
+  RATE_LIMIT_WINDOW_MS: "900000"
+  RATE_LIMIT_MAX_REQUESTS: "100"

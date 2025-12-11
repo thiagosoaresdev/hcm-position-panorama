@@ -1,0 +1,58 @@
+/* SDS Form Field Component */
+.sds-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-spacing-2);
+  margin-bottom: var(--sds-spacing-4);
+}
+
+.sds-form-field__label {
+  font-size: var(--sds-font-size-sm);
+  font-weight: 500;
+  color: var(--sds-gray-700);
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: var(--sds-spacing-1);
+}
+
+.sds-form-field__required {
+  color: var(--sds-danger);
+  font-weight: 600;
+}
+
+.sds-form-field__control {
+  position: relative;
+}
+
+.sds-form-field__hint {
+  font-size: var(--sds-font-size-sm);
+  color: var(--sds-gray-600);
+  line-height: 1.4;
+}
+
+.sds-form-field__error {
+  font-size: var(--sds-font-size-sm);
+  color: var(--sds-danger);
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  gap: var(--sds-spacing-1);
+}
+
+.sds-form-field__error::before {
+  content: '⚠';
+  font-size: var(--sds-font-size-base);
+}
+
+/* Error state styling */
+.sds-form-field--error .sds-form-field__label {
+  color: var(--sds-danger);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sds-form-field {
+    margin-bottom: var(--sds-spacing-3);
+  }
+}
