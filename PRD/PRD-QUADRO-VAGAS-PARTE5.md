@@ -8,11 +8,11 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │              SISTEMA QUADRO DE LOTAÇÃO (Frontend)            │
-│  (Angular 9+ com PrimeNG, Senior Design System)             │
+│  (Framework escolhido pela equipe + Senior Design System)   │
 └─────────────────────────────────────────────────────────────┘
               ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
 ┌──────────────────────────────────────────────────────────────┐
-│                    BACKEND API (Nodejs/Python/Java)          │
+│                    BACKEND API (Stack escolhido)             │
 │  - CRUD de Quadro de Vagas                                  │
 │  - Normalização (regras de negócio)                         │
 │  - Workflow de Aprovação                                    │
@@ -94,101 +94,130 @@ EM CASO DE EXPIRAÇÃO:
 - Renovação de sessão
 - Redirecionamento para login
 
-**Angular Interceptor Simplificado:**
+**Interceptor HTTP Genérico (implementar conforme framework escolhido):**
 
-```typescript
-import { SeniorXAuthService } from '@senior-x/platform-auth';
+```yaml
+# Lógica de Interceptor HTTP (adaptar para framework escolhido)
 
-// Interceptor simplificado - token gerenciado pela plataforma
-export class AuthInterceptor implements HttpInterceptor {
-  constructor(private seniorXAuth: SeniorXAuthService) {}
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Token obtido automaticamente da SeniorX Platform
-    const token = this.seniorXAuth.getAccessToken();
+HTTP_Interceptor:
+  name: "AuthInterceptor"
+  
+  dependencies:
+    - SeniorXAuthService (SDK da plataforma)
+  
+  on_request:
+    # Obter token da SeniorX Platform
+    token = SeniorXAuth.getAccessToken()
     
-    if (token) {
-      req = req.clone({
-        setHeaders: { Authorization: `Bearer ${token}` }
-      });
-    }
+    if token exists:
+      # Adicionar header Authorization
+      request.headers['Authorization'] = 'Bearer ' + token
     
-    return next.handle(req).pipe(
-      catchError(error => {
-        if (error.status === 401) {
-          // Redireciona para login da plataforma
-          this.seniorXAuth.redirectToLogin();
-        }
-        return throwError(error);
-      })
-    );
-  }
-}
+    return request
+  
+  on_response_error:
+    if status_code == 401:  # Unauthorized
+      # Redirecionar para login da plataforma
+      SeniorXAuth.redirectToLogin()
+    
+    return error
+
+# Aplicar em:
+# - Angular: HttpInterceptor
+# - React: Axios interceptor / Fetch wrapper
+# - Vue: Axios interceptor
+# - Vanilla JS: Fetch API wrapper
 ```
 
 ### 1.5 Logout
 
 **Gerenciado pela SeniorX Platform:**
 
-```typescript
-// No componente Angular
-export class HeaderComponent {
-  constructor(private seniorXAuth: SeniorXAuthService) {}
+```yaml
+# Fluxo de Logout (implementar no framework escolhido)
 
-  logout() {
-    // SeniorX Platform gerencia todo o processo
-    this.seniorXAuth.logout();
-    // Automaticamente:
-    // - Invalida tokens
-    // - Limpa sessão
-    // - Redireciona para página de login
-  }
-}
+Logout_Function:
+  trigger: User clicks logout button
+  
+  implementation:
+    # Chamar método do SDK SeniorX
+    SeniorXAuth.logout()
+    
+    # A plataforma automaticamente:
+    # - Invalida tokens (access + refresh)
+    # - Limpa sessão local/cookies
+    # - Redireciona para página de login
+  
+  example_usage:
+    # HTML/Template:
+    <button onclick="handleLogout()">Sair</button>
+    
+    # JavaScript/Handler:
+    function handleLogout() {
+      SeniorXAuth.logout();
+    }
 ```
 
 ### 1.6 Informações do Usuário Autenticado
 
 **Obter dados do usuário logado:**
 
-```typescript
-import { SeniorXAuthService } from '@senior-x/platform-auth';
+```yaml
+# SDK Method: getUserInfo()
 
-export class UserService {
-  constructor(private seniorXAuth: SeniorXAuthService) {}
-
-  getUserInfo() {
-    return this.seniorXAuth.getUserInfo();
-    // Retorna:
-    // {
-    //   id: "user@company.com",
-    //   name: "João Silva",
-    //   email: "user@company.com",
-    //   roles: ["ROLE_RH_MANAGER"],
-    //   empresa_id: "emp_001",
-    //   permissions: [...]
-    // }
-  }
-}
+SeniorXAuth.getUserInfo():
+  description: "Retorna informações do usuário autenticado"
+  
+  returns:
+    type: UserInfo object
+    structure:
+      id: string           # "user@company.com"
+      name: string         # "João Silva"
+      email: string        # "user@company.com"
+      roles: array<string> # ["ROLE_RH_MANAGER"]
+      empresa_id: string   # "emp_001"
+      permissions: array<string>
+  
+  example_implementation:
+    # Pseudocódigo
+    userInfo = SeniorXAuth.getUserInfo()
+    
+    display("Bem-vindo, " + userInfo.name)
+    
+    if userInfo.roles.includes("ROLE_RH_ADMIN"):
+      showAdminPanel()
 ```
 
 ### 1.7 Configuração Inicial
 
-**No módulo principal da aplicação:**
+**Inicialização do SDK SeniorX Platform:**
 
-```typescript
-import { SeniorXPlatformModule } from '@senior-x/platform';
+```yaml
+# Configuração de Inicialização (adaptar para framework escolhido)
 
-@NgModule({
-  imports: [
-    SeniorXPlatformModule.forRoot({
-      appId: 'quadro-vagas',
-      apiUrl: 'https://api.senior.com.br',
-      authRequired: true,
-      autoRefreshToken: true
-    })
-  ]
-})
-export class AppModule {}
+SeniorXPlatform_Config:
+  appId: "quadro-vagas"
+  apiUrl: "https://api.senior.com.br"
+  authRequired: true
+  autoRefreshToken: true
+  
+  # Opções adicionais
+  options:
+    sessionTimeout: 3600      # segundos
+    enableSSO: true
+    enable2FA: true           # gerenciado pela plataforma
+    logLevel: "info"          # debug, info, warn, error
+
+# Inicialização na aplicação:
+initialize_app:
+  # Ao carregar aplicação
+  SeniorXPlatform.initialize(config)
+  
+  # Aguardar inicialização
+  await SeniorXPlatform.ready()
+  
+  # App pronto para uso
+  startApplication()
 ```
 
 **Notas Importantes:**
@@ -277,61 +306,81 @@ Response (403 Forbidden):
 }
 ```
 
-### 2.5 Integração no Frontend (Guard)
+### 2.5 Integração no Frontend (Proteção de Rotas)
 
-**Angular Route Guard:**
+**Especificação de Route Guard (implementar conforme framework):**
 
-```typescript
-export class AuthorizationGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+```yaml
+# Lógica de Proteção de Rotas
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    const requiredPermission = route.data.permission;
-    
-    return this.authService.checkPermission(requiredPermission).pipe(
-      map(allowed => {
-        if (!allowed) {
-          this.router.navigate(['/acesso-negado']);
-        }
-        return allowed;
-      })
-    );
-  }
-}
+Route_Protection:
+  name: "AuthorizationGuard"
+  
+  logic:
+    before_route_access:
+      # Obter permissão requerida da rota
+      required_permission = route.metadata.permission
+      
+      # Verificar com Platform Authorization
+      has_permission = PlatformAuth.checkPermission(required_permission)
+      
+      if has_permission:
+        allow_access()
+      else:
+        redirect_to('/acesso-negado')
+  
+  route_configuration:
+    path: "/propostas/efetivar"
+    component: EfetivarPropostasComponent
+    guards: [AuthorizationGuard]
+    metadata:
+      permission: "quadro_vagas:propostas:approve_rh"
 
-// Uso em rota:
-{
-  path: 'propostas/efetivar',
-  component: EfetivarPropostasComponent,
-  canActivate: [AuthorizationGuard],
-  data: { permission: 'quadro_vagas:propostas:approve_rh' }
-}
+# Implementar em:
+# - Angular: CanActivate
+# - React: ProtectedRoute component
+# - Vue: Navigation Guards (beforeEnter)
+# - Next.js: Middleware
 ```
 
 ### 2.6 Integração em Componentes
 
-**Hide/Show baseado em Permissão:**
+**Hide/Show baseado em Permissão (especificação genérica):**
 
-```html
-<!-- Botão visível apenas para RH -->
-<button *ngIf="hasPermission('quadro_vagas:quadro:delete')"
-        (click)="deletarCargo()"
-        class="btn-danger">
-  [🗑️] Deletar
-</button>
+```yaml
+# Lógica de Renderização Condicional
 
-<!-- Menu com permissões -->
-<nav-menu>
-  <menu-item *ngIf="hasPermission('quadro_vagas:quadro:create')"
-             label="Novo Cargo"
-             icon="plus" />
-  <menu-item *ngIf="hasPermission('quadro_vagas:propostas:approve_rh')"
-             label="Efetivar Propostas"
-             icon="check" />
-</nav-menu>
+UI_Permission_Logic:
+  
+  # Exemplo 1: Botão Delete
+  delete_button:
+    visible_if: hasPermission('quadro_vagas:quadro:delete')
+    on_click: deletarCargo()
+    style: danger
+    label: "🗑️ Deletar"
+  
+  # Exemplo 2: Menu Items
+  menu_items:
+    - label: "Novo Cargo"
+      icon: "plus"
+      visible_if: hasPermission('quadro_vagas:quadro:create')
+      
+    - label: "Efetivar Propostas"
+      icon: "check"
+      visible_if: hasPermission('quadro_vagas:propostas:approve_rh')
+
+# Pseudocódigo de implementação:
+function renderButton():
+  if hasPermission('quadro_vagas:quadro:delete'):
+    return <Button onClick={deletarCargo}>🗑️ Deletar</Button>
+  else:
+    return null
+
+# Implementar em:
+# - React: {hasPermission() && <Button/>}
+# - Vue: v-if="hasPermission()"
+# - Angular: *ngIf="hasPermission()"
+# - Vanilla: CSS display: none
 ```
 
 ---
@@ -431,56 +480,72 @@ Documentação: https://dev.senior.com.br/api_publica/platform_notifications/
 
 ### 3.5 Webhook para In-app Real-time
 
-**Backend publica evento:**
+**Backend publica evento (especificação genérica):**
 
-```typescript
-// Backend envia evento via WebSocket/SSE
-const notificationEvent = {
-  event_type: 'proposta.created',
-  timestamp: new Date().toISOString(),
-  data: {
-    proposta_id: '145',
-    tipo: 'Inclusão',
-    solicitante: 'Maria Silva',
-    approve_urls: {
-      nivel_1: '/api/propostas/145/approve'
-    }
-  }
-};
+```yaml
+# Estrutura de Evento Real-time
 
-// Via WebSocket
-socket.emit('notification', notificationEvent);
+Notification_Event:
+  event_type: "proposta.created"
+  timestamp: "2025-12-15T10:30:00Z"  # ISO 8601
+  data:
+    proposta_id: "145"
+    tipo: "Inclusão"
+    solicitante: "Maria Silva"
+    approve_urls:
+      nivel_1: "/api/propostas/145/approve"
 
-// Via Server-Sent Events (SSE)
-res.write(`data: ${JSON.stringify(notificationEvent)}\n\n`);
+# Publicação (Backend)
+Publish_Methods:
+  
+  WebSocket:
+    channel: "notifications"
+    event: "notification"
+    payload: NotificationEvent
+    # Implementar com: Socket.IO, WS, SignalR, etc.
+  
+  Server_Sent_Events:
+    endpoint: "/api/notifications/stream"
+    format: "data: {json}\n\n"
+    content_type: "text/event-stream"
 ```
 
-**Frontend recebe e exibe:**
+**Frontend recebe e exibe (especificação genérica):**
 
-```typescript
-// Component Angular
-export class NotificacaoComponent implements OnInit {
-  constructor(private notificationService: NotificationService) {}
+```yaml
+# Lógica de Recepção de Notificações
 
-  ngOnInit() {
-    // Conectar ao WebSocket
-    this.notificationService.subscribe('proposta.created').subscribe(event => {
-      this.showNotificationCard(event);
-      this.playSound(); // som de alerta
-    });
-  }
-
-  showNotificationCard(event) {
-    // Exibe card flutuante com ação
-    const notification = {
-      title: `Proposta #${event.data.proposta_id}`,
-      body: `${event.data.solicitante} enviou para aprovação`,
-      action: () => this.router.navigate([`/propostas/${event.data.proposta_id}`])
-    };
+Notification_Handler:
+  
+  on_component_init:
+    # Conectar ao canal de notificações
+    subscribe_to_channel('proposta.created')
+  
+  on_event_received:
+    event = received_event
     
-    this.toastr.info(notification.body, notification.title);
-  }
-}
+    # Exibir notificação visual
+    show_toast(
+      title: "Proposta #" + event.data.proposta_id
+      body: event.data.solicitante + " enviou para aprovação"
+      icon: "info"
+      duration: 5000  # ms
+    )
+    
+    # Tocar som (opcional)
+    play_notification_sound()
+    
+    # Ação ao clicar
+    on_click: navigate("/propostas/" + event.data.proposta_id)
+  
+  on_component_destroy:
+    # Desconectar
+    unsubscribe_from_channel()
+
+# Implementar com:
+# - WebSocket: socket.io-client, ws, native WebSocket
+# - SSE: EventSource API, fetch with stream
+# - Toast: biblioteca de notificação do framework escolhido
 ```
 
 ### 3.6 Preferências de Notificação
@@ -780,40 +845,67 @@ market_data_trends
 
 ### 5.5 Job Scheduled (Cron)
 
-```typescript
-// Backend - Cron Job
-@Cron('0 0 1 * *') // 1º dia de cada mês à 00:00
-async importarMarketData() {
-  try {
-    // 1. Buscar dados Glassdoor
-    const salarioGD = await glassdoorService.buscarSalarios();
-    const beneficiosGD = await glassdoorService.buscarBeneficios();
+```yaml
+# Especificação de Job Agendado
+
+Scheduled_Job:
+  name: "Import Market Data"
+  schedule: "0 0 1 * *"  # Cron: 1º dia de cada mês às 00:00
+  timezone: "America/Sao_Paulo"
+  
+  execution_flow:
     
-    // 2. Buscar dados LinkedIn
-    const trendsLI = await linkedinService.buscarTrends();
+    step_1_fetch_glassdoor:
+      action: API call to Glassdoor
+      endpoints:
+        - GET /salaries
+        - GET /benefits
+      store_in: glassdoor_data
     
-    // 3. Mapear e validar
-    const marketData = this.mapearDados({
-      glassdoor: { salario: salarioGD, beneficios: beneficiosGD },
-      linkedin: { trends: trendsLI }
-    });
+    step_2_fetch_linkedin:
+      action: API call to LinkedIn
+      endpoints:
+        - GET /trends
+      store_in: linkedin_data
     
-    // 4. Armazenar
-    await marketDataRepository.save(marketData);
+    step_3_map_and_validate:
+      action: Transform data
+      input:
+        - glassdoor_data
+        - linkedin_data
+      output: market_data (normalized)
+      validations:
+        - Check required fields
+        - Validate date ranges
+        - Remove duplicates
     
-    // 5. Notificar
-    await notificationService.enviar({
-      tipo: 'market_data_imported',
-      destinatario: 'rh@company.com',
-      mensagem: 'Dados de mercado atualizados'
-    });
+    step_4_persist:
+      action: Save to database
+      table: market_data_salario, market_data_beneficios, market_data_trends
+      data: market_data
     
-    logger.info('Market data imported successfully');
-  } catch (error) {
-    logger.error('Error importing market data', error);
-    await alertService.enviarAlerta('Market data import failed');
-  }
-}
+    step_5_notify:
+      action: Send notification via Platform Notifications
+      recipients: ["rh@company.com"]
+      template: "market_data_imported"
+      message: "Dados de mercado atualizados com sucesso"
+  
+  error_handling:
+    on_error:
+      - Log error details
+      - Send alert to admins
+      - Retry: 3 attempts with 5min interval
+      - If all fail: escalate to support
+  
+  logging:
+    success: "Market data imported successfully"
+    error: "Error importing market data: {error_message}"
+
+# Implementar com:
+# - Node.js: node-cron, agenda, bull
+# - Python: APScheduler, Celery
+# - Java: Quartz, Spring @Scheduled
+# - Serverless: AWS Lambda + EventBridge, Azure Functions + Timer
 ```
 
 ---
@@ -979,20 +1071,40 @@ ORDER BY confianca DESC;
 
 ### Exemplo: HTTPS + JWT
 
-```typescript
-// Interceptor com verificação
-const options = {
-  headers: new HttpHeaders({
-    'Authorization': `Bearer ${accessToken}`,
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  }),
-  // Force HTTPS
-  withCredentials: true
-};
+```yaml
+# Configuração de Requisições HTTP Seguras
 
-// Request sempre com HTTPS
-http.post('https://api.senior.com/quadro/vagas', data, options);
+HTTP_Request_Config:
+  
+  protocol: HTTPS  # Obrigatório (TLS 1.3)
+  base_url: "https://api.senior.com"
+  
+  headers:
+    Authorization: "Bearer {access_token}"
+    Content-Type: "application/json"
+    X-Requested-With: "XMLHttpRequest"
+  
+  options:
+    with_credentials: true  # Incluir cookies se necessário
+    timeout: 30000          # 30 segundos
+    retry: 3                # Tentar 3 vezes em caso de erro de rede
+  
+  validation:
+    # Sempre verificar se URL usa HTTPS
+    enforce_https: true
+    # Rejeitar certificados inválidos
+    verify_ssl: true
+
+# Exemplo de uso (pseudocódigo):
+request = HTTP.post(
+  url: "https://api.senior.com/quadro/vagas",
+  data: payload,
+  headers: request_headers,
+  config: http_config
+)
+
+# Implementar com:
+# - Fetch API, Axios, HttpClient, Request library do framework escolhido
 ```
 
 ---
