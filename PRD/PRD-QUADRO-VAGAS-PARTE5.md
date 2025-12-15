@@ -45,119 +45,79 @@
 
 ---
 
-## 🔐 INTEGRAÇÃO 1: PLATFORM AUTHENTICATION
+## 🔐 INTEGRAÇÃO 1: PLATFORM AUTHENTICATION (SeniorX)
 
 ### 1.1 Objetivo
-Autenticação centralizada usando Senior X Platform, suportando OAuth 2.0, SSO e 2FA.
+A **SeniorX Platform gerencia toda a autenticação** de forma centralizada e transparente. O sistema Quadro de Vagas apenas consome os tokens já validados pela plataforma, sem necessidade de implementar fluxos OAuth ou SSO.
 
-### 1.2 Endpoint
-```
-Base URL: https://dev.senior.com.br/api_publica/platform_authentication/
-Documentação: https://dev.senior.com.br/api_publica/platform_authentication/
-```
+### 1.2 Como Funciona
 
-### 1.3 Fluxos de Autenticação
+**A SeniorX Platform já fornece:**
+- ✅ OAuth 2.0 configurado
+- ✅ Single Sign-On (SSO)
+- ✅ Autenticação de dois fatores (2FA)
+- ✅ Gestão de sessões e tokens
+- ✅ Renovação automática de tokens
 
-#### Fluxo A: OAuth 2.0 + SSO
+**O que o sistema precisa fazer:**
+- Apenas consumir o token JWT fornecido pela plataforma
+- Incluir o token nas requisições à API
+- Tratar expiração (401) redirecionando para login da plataforma
 
-```
-1. USER ACESSA APLICAÇÃO
-   ↓
-2. FRONTEND REDIRECIONA PARA LOGIN SENIOR X
-   GET /oauth/authorize?
-     client_id=QUADRO_VAGAS_APP
-     redirect_uri=https://quadro-vagas.senior.com/callback
-     scope=profile email
-     response_type=code
-   ↓
-3. USUARIO EFETUA LOGIN (com 2FA se configurado)
-   ↓
-4. SENIOR RETORNA AUTHORIZATION CODE
-   ↓
-5. FRONTEND REDIRECIONA PARA CALLBACK
-   GET https://quadro-vagas.senior.com/callback?code=XXX
-   ↓
-6. BACKEND TROCA CODE POR TOKEN
-   POST /oauth/token
-   Content-Type: application/x-www-form-urlencoded
-   
-   client_id=QUADRO_VAGAS_APP
-   client_secret=SECRET_KEY
-   grant_type=authorization_code
-   code=XXX
-   redirect_uri=https://quadro-vagas.senior/callback
-   ↓
-7. RESPOSTA COM ACCESS TOKEN + REFRESH TOKEN
-   {
-     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-     "token_type": "Bearer",
-     "expires_in": 3600,
-     "refresh_token": "REFRESH_TOKEN_XXX",
-     "scope": "profile email"
-   }
-   ↓
-8. FRONTEND ARMAZENA TOKENS (localStorage/sessionStorage)
-   ↓
-9. USUARIO REDIRECIONADO PARA DASHBOARD
-   ✅ AUTENTICADO
-```
-
-#### Fluxo B: Refresh Token
+### 1.3 Fluxo Simplificado
 
 ```
-QUANDO TOKEN EXPIRAR:
+1. USUÁRIO ACESSA APLICAÇÃO
+   ↓
+2. SENIORX PLATFORM VALIDA SESSÃO
+   - Se não autenticado: Redireciona para login SeniorX
+   - Se autenticado: Injeta token JWT no contexto
+   ↓
+3. APLICAÇÃO RECEBE TOKEN JWT
+   const token = SeniorXPlatform.getAccessToken();
+   ↓
+4. APLICAÇÃO USA TOKEN EM REQUISIÇÕES
+   Authorization: Bearer {token}
+   ↓
+5. ✅ USUÁRIO AUTENTICADO
 
-1. FRONTEND DETECTA TOKEN EXPIRADO
-   (status 401 em requisição)
-
-2. FRONTEND USA REFRESH TOKEN
-   POST /oauth/token
-   {
-     "grant_type": "refresh_token",
-     "refresh_token": "REFRESH_TOKEN_XXX",
-     "client_id": "QUADRO_VAGAS_APP",
-     "client_secret": "SECRET_KEY"
-   }
-
-3. BACKEND VALIDA E RETORNA NOVO ACCESS TOKEN
-   {
-     "access_token": "NEW_TOKEN_...",
-     "expires_in": 3600,
-     "token_type": "Bearer"
-   }
-
-4. FRONTEND ARMAZENA NOVO TOKEN
-   E RETENTA REQUISIÇÃO ORIGINAL
-
-✅ SESSION MANTIDA SEM LOGOUT
+EM CASO DE EXPIRAÇÃO:
+- SeniorX Platform renova automaticamente
+- Ou redireciona para re-autenticação
+- Aplicação não gerencia refresh tokens
 ```
 
 ### 1.4 Integração no Frontend
 
-**Angular Interceptor (HttpInterceptor):**
+**A SeniorX Platform já fornece o SDK/Biblioteca que gerencia automaticamente:**
+- Injeção de tokens
+- Renovação de sessão
+- Redirecionamento para login
+
+**Angular Interceptor Simplificado:**
 
 ```typescript
-// Adiciona token a todas requisições
+import { SeniorXAuthService } from '@senior-x/platform-auth';
+
+// Interceptor simplificado - token gerenciado pela plataforma
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private seniorXAuth: SeniorXAuthService) {}
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('access_token');
+    // Token obtido automaticamente da SeniorX Platform
+    const token = this.seniorXAuth.getAccessToken();
+    
     if (token) {
       req = req.clone({
         setHeaders: { Authorization: `Bearer ${token}` }
       });
     }
+    
     return next.handle(req).pipe(
       catchError(error => {
         if (error.status === 401) {
-          // Token expirado, tentar refresh
-          return this.refreshToken().pipe(
-            switchMap(newToken => {
-              const newReq = req.clone({
-                setHeaders: { Authorization: `Bearer ${newToken}` }
-              });
-              return next.handle(newReq);
-            })
-          );
+          // Redireciona para login da plataforma
+          this.seniorXAuth.redirectToLogin();
         }
         return throwError(error);
       })
@@ -168,56 +128,74 @@ export class AuthInterceptor implements HttpInterceptor {
 
 ### 1.5 Logout
 
-```
-1. USER CLICA [LOGOUT]
+**Gerenciado pela SeniorX Platform:**
 
-2. FRONTEND REMOVE TOKENS
-   localStorage.removeItem('access_token');
-   localStorage.removeItem('refresh_token');
+```typescript
+// No componente Angular
+export class HeaderComponent {
+  constructor(private seniorXAuth: SeniorXAuthService) {}
 
-3. FRONTEND REDIRECIONA PARA LOGIN
-   GET /oauth/logout
-
-4. SENIOR X INVALIDA SESSÃO
-
-5. ✅ USUARIO DESLOGADO
-```
-
-### 1.6 2FA (Two-Factor Authentication)
-
-**Se configurado na empresa:**
-
-```
-POST /oauth/token
-{
-  "client_id": "QUADRO_VAGAS_APP",
-  "username": "user@company.com",
-  "password": "password",
-  "grant_type": "password"
-}
-
-RESPOSTA (Quando 2FA ativado):
-{
-  "requires_2fa": true,
-  "session_token": "SESSION_TOKEN_XXX"
-}
-
-↓ USUARIO RECEBE SMS/EMAIL COM CÓDIGO
-
-POST /oauth/token
-{
-  "session_token": "SESSION_TOKEN_XXX",
-  "2fa_code": "123456",
-  "grant_type": "urn:ietf:params:oauth:grant-type:2fa"
-}
-
-RESPOSTA:
-{
-  "access_token": "...",
-  "refresh_token": "...",
-  "expires_in": 3600
+  logout() {
+    // SeniorX Platform gerencia todo o processo
+    this.seniorXAuth.logout();
+    // Automaticamente:
+    // - Invalida tokens
+    // - Limpa sessão
+    // - Redireciona para página de login
+  }
 }
 ```
+
+### 1.6 Informações do Usuário Autenticado
+
+**Obter dados do usuário logado:**
+
+```typescript
+import { SeniorXAuthService } from '@senior-x/platform-auth';
+
+export class UserService {
+  constructor(private seniorXAuth: SeniorXAuthService) {}
+
+  getUserInfo() {
+    return this.seniorXAuth.getUserInfo();
+    // Retorna:
+    // {
+    //   id: "user@company.com",
+    //   name: "João Silva",
+    //   email: "user@company.com",
+    //   roles: ["ROLE_RH_MANAGER"],
+    //   empresa_id: "emp_001",
+    //   permissions: [...]
+    // }
+  }
+}
+```
+
+### 1.7 Configuração Inicial
+
+**No módulo principal da aplicação:**
+
+```typescript
+import { SeniorXPlatformModule } from '@senior-x/platform';
+
+@NgModule({
+  imports: [
+    SeniorXPlatformModule.forRoot({
+      appId: 'quadro-vagas',
+      apiUrl: 'https://api.senior.com.br',
+      authRequired: true,
+      autoRefreshToken: true
+    })
+  ]
+})
+export class AppModule {}
+```
+
+**Notas Importantes:**
+- ✅ 2FA é gerenciado pela SeniorX Platform (transparente para a aplicação)
+- ✅ SSO funciona automaticamente se o usuário já estiver autenticado em outro sistema Senior
+- ✅ Não é necessário armazenar tokens manualmente (gerenciado pela plataforma)
+- ✅ Renovação de tokens é automática
 
 ---
 
