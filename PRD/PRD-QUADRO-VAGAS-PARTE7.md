@@ -55,9 +55,8 @@
 - ✅ Responsividade OK
 
 ### FASE 3: Quadro de Lotação (Semana 5-7)
-- [ ] Manutenção do Quadro (CRUD)
+- [ ] Manutenção do Quadro (Vagas por Posto)
 - [ ] Funções e Permissões
-- [ ] Cargos Previstos
 - [ ] Reservas de Vagas
 - [ ] Definições por Usuário
 - [ ] Timeline/Histórico

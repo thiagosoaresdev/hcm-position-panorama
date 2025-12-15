@@ -36,10 +36,10 @@ Criar, editar, visualizar e deletar propostas de alteração no quadro.
 
 | Tipo | Descrição | Exemplo |
 |------|-----------|---------|
-| **Inclusão de Vaga** | Criar nova vaga | +1 Dev Senior em TI |
-| **Alteração de Vaga** | Modificar cargo/quantidade | De 1 Pleno para 2 Junior |
-| **Exclusão de Vaga** | Remover vaga | -1 Gerente em RH |
-| **Transferência** | Mover vaga entre centros | De TI para Operações |
+| **Inclusão de Posto** | Adicionar posto ao quadro com vagas | Adicionar DEV002 com 5 vagas |
+| **Alteração de Vagas** | Modificar quantidade de vagas em posto existente | DEV001: 8 → 10 vagas |
+| **Exclusão de Posto** | Remover posto do quadro | Remover GER001 do quadro |
+| **Transferência** | Mover vagas de um posto para outro | DEV001 → DEV002: 2 vagas |
 
 #### Campos - Formulário
 
@@ -48,16 +48,16 @@ Criar, editar, visualizar e deletar propostas de alteração no quadro.
 | **Tipo Proposta** | Select | ✅ | Inclusão / Alteração / Exclusão / Transferência |
 | **Descrição** | Text | ✅ | Título resumido |
 | **Detalhamento** | Text Area | ✅ | Justificativa da alteração |
-| **Centro de Custo Origem** | Select | ✅ | Onde está a vaga atual (ou será) |
-| **Posto de Trabalho** | Select | ✅ | Qual posto afetado |
-| **Cargo Atual** | Select (RO) | 🔒 | Auto-preenchido (read-only) |
-| **Cargo Novo** | Select | ⭕ | Se diferente do atual |
-| **Vagas Atuais** | Number (RO) | 🔒 | Auto-preenchido |
-| **Vagas Solicitadas** | Number | ✅ | Nova quantidade |
-| **Centro Destino** | Select | ⭕ | Para tipo "Transferência" |
+| **Posto de Trabalho** | Select | ✅ | Posto afetado (ex: DEV001 - Dev Backend Pleno TI) |
+| **Vagas Atuais** | Number (RO) | 🔒 | Auto-preenchido do quadro atual |
+| **Vagas Solicitadas** | Number | ✅ | Nova quantidade de vagas para o posto |
+| **Posto Destino** | Select | ⭕ | Para tipo "Transferência" (para qual posto transferir) |
+| **Quantidade Transferência** | Number | ⭕ | Quantas vagas transferir (apenas para Transferência) |
 | **Impacto Orçamentário** | Text | ⭕ | Estimativa de custo (livre) |
 | **Análise de Impacto** | Text Area | ⭕ | Como afeta outras áreas |
 | **Anexos** | File Upload | ⭕ | Documentos suportivos |
+
+**Nota:** Os campos Centro de Custo, Cargo, Filial, etc. são automáticos pois fazem parte do Posto de Trabalho selecionado.
 
 #### Interface - Tabela Gestão
 
@@ -65,14 +65,14 @@ Criar, editar, visualizar e deletar propostas de alteração no quadro.
 ┌──────────────────────────────────────────────────────────────────┐
 │ GESTÃO DE PROPOSTAS                      [+ Nova Proposta]       │
 ├──────────────────────────────────────────────────────────────────┤
-│ Filtros: [Status ▼] [Tipo ▼] [Centro ▼] [Buscar...]             │
+│ Filtros: [Status ▼] [Tipo ▼] [Posto ▼] [Buscar...]             │
 ├──────────────────────────────────────────────────────────────────┤
 │ ID │ Tipo │ Descrição │ Solicitante │ Status │ Criação │ Ações │
 │──────────────────────────────────────────────────────────────────│
-│#145│ Incl │ +Dev Pleno TI │ Maria │ ✏️ Rascunho│ 08/12 │[✏️][📋]
-│#144│ Alt  │ 1→2 Junior │ João │ ⏳ Nível 1│ 07/12 │[📋][🔁] │
-│#143│ Excl │ -Gerente RH │ Ana │ ✅ Aprovada│ 06/12 │[📋]  │
-│#142│ Trans│ Dev→Ops │ Carlos │ ❌ Rejeitada│ 05/12 │[📋]  │
+│#145│ Incl │ DEV001: +2 vagas │ Maria │ ✏️ Rascunho│ 08/12 │[✏️][📋]
+│#144│ Alt  │ DEV001: 8→10 vag │ João │ ⏳ Nível 1│ 07/12 │[📋][🔁] │
+│#143│ Excl │ GER001: Remover │ Ana │ ✅ Aprovada│ 06/12 │[📋]  │
+│#142│ Trans│ DEV001→DEV002 │ Carlos │ ❌ Rejeitada│ 05/12 │[📋]  │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -286,10 +286,10 @@ Visão analítica aprofundada com KPIs, tendências e insights.
 
 **Card 1: Taxa de Ocupação (Gráfico Pizza)**
 ```
-Taxa de Ocupação: 93.2%
+Taxa de Ocupação: 96.5%
 ┌─────────────────┐
 │  Ocupadas       │
-│  93.2% (165)    │ ✅ Acima da Meta (95%)
+│  96.5% (165)    │ ✅ Acima da Meta (95%)
 │  ┌───────────┐  │
 │  │███████░░  │  │
 │  └───────────┘  │
@@ -574,10 +574,9 @@ Acessível de qualquer módulo via botão [📋 Histórico] ou [⏱️ Timeline]
 │                                                                   │
 │ 01/12/2025 - 11:00 - João Santos (Gerente) - ADMISSÃO           │
 │ ├─ Ação: Colaborador admitido                                   │
-│ ├─ Colaborador: Ana Beatriz (Dev Junior)                        │
-│ ├─ Cargo Previsto: Dev Full Stack (DISCREPÂNCIA ⚠️)            │
-│ ├─ Cargo Real: Dev Junior                                       │
-│ ├─ Motivo: Contratação com cargo reduzido                       │
+│ ├─ Colaborador: Ana Beatriz                                     │
+│ ├─ Posto: DEV001 - Dev Full Stack                               │
+│ ├─ Motivo: Contratação efetivada                                │
 │ └─ [Detalhes do Colaborador]                                     │
 │                                                                   │
 │ 25/11/2025 - 16:45 - Sistema - PROPOSTA EFETIVADA              │

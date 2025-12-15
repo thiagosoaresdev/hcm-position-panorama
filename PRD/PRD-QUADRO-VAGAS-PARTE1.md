@@ -101,9 +101,8 @@ O **Sistema de Gestão de Quadro de Lotação** é uma solução corporativa que
 ### Módulo 2: Quadro de Lotação
 - **Escopo:** Gerenciamento estruturado do quadro de vagas
 - **Sub-módulos:**
-  - Manutenção do Quadro (CRUD de vagas)
+  - Manutenção do Quadro (Vagas por Posto)
   - Funções (Permissões de alteração)
-  - Cargos Previstos (Novas vagas)
   - Reservas (Vagas em processo seletivo)
   - Definições por Usuário (Exceções de permissão)
 
@@ -133,24 +132,43 @@ O **Sistema de Gestão de Quadro de Lotação** é uma solução corporativa que
 
 ```
 EMPRESA
-├── ÁREA/DEPARTAMENTO
-│   ├── CENTRO DE CUSTO
-│   │   └── POSTO DE TRABALHO
-│   │       ├── Cargo
-│   │       ├── Vagas Previstas
-│   │       ├── Vagas Efetivas
-│   │       └── Vagas Reservadas
-│   └── CENTRO DE CUSTO (outro)
-└── FILIAL (matriz/múltiplas filiais suportadas)
-    ├── CENTRO DE CUSTO
-    │   └── POSTO DE TRABALHO
+├── FILIAL (matriz/múltiplas filiais suportadas)
+│   └── POSTO DE TRABALHO (entidade principal do quadro)
+│       │
+│       ├── Características Obrigatórias:
+│       │   ├── Centro de Custo (Departamento/Área)
+│       │   ├── Cargo
+│       │   ├── Filial
+│       │   ├── Local
+│       │   └── Tipo de Colaborador
+│       │
+│       ├── Características Opcionais:
+│       │   ├── Turno
+│       │   ├── Escala
+│       │   ├── Sindicato
+│       │   ├── PcD (Pessoa com Deficiência)
+│       │   └── Projeto/Fase
+│       │
+│       └── Controle de Vagas:
+│           ├── Vagas Previstas (quantidade autorizada)
+│           ├── Vagas Efetivas (colaboradores alocados)
+│           └── Vagas Reservadas (em processo seletivo)
 ```
+
+**Conceito de Posto de Trabalho:**
+> O posto de trabalho representa um **agrupamento de características pré-determinadas** para ocupação de uma posição por um colaborador na empresa. A combinação única dessas características define um posto específico.
+
+**Exemplos:**
+- "Dev Backend Pleno - TI - Noturno - Matriz SP" = UM posto
+- "Dev Backend Pleno - TI - Diurno - Matriz SP" = OUTRO posto (turno diferente)
+- "Dev Backend Pleno - RH - Noturno - Matriz SP" = OUTRO posto (centro de custo diferente)
 
 **Características:**
 - Suporte a múltiplas filiais com quadros independentes
-- Hierarquia flexível de Centros de Custo
-- Cada Posto de Trabalho tem histórico de alterações
-- Controles de acesso por Empresa/Área/Centro de Custo
+- Posto de Trabalho é a unidade atômica de gestão do quadro
+- Cada Posto tem histórico completo de alterações
+- Controles de acesso por Empresa/Filial/Centro de Custo
+- Gestão de vagas previstas e efetivas por posto
 
 ---
 
@@ -198,14 +216,6 @@ Conjunto de vagas autorizadas para um período específico, com:
 - Quando um colaborador é **admitido/transferido/desligado**, o Quadro Efetivo atualiza automaticamente
 - Processamento em **tempo real** (não requer ação manual)
 - Registra timestamp e usuário da ação
-
-### RN-002: Cargo vs Cargo da Vaga
-- "Cargo da Vaga" = diferente do cargo real do colaborador
-- Configuração por Sistema:
-  - **Modo 1:** ALERTAR (log de discrepância)
-  - **Modo 2:** PERMITIR (sem restrição)
-  - **Modo 3:** BLOQUEAR (impede admissão)
-  - **Modo 4:** EXIGIR APROVAÇÃO (workflow adicional)
 
 ### RN-003: Controle de Vagas PcD
 - Integrado ao quadro geral com **flag de prioridade PcD**

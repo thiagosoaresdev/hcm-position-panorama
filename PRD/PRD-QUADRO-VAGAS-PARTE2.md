@@ -28,16 +28,16 @@ Organização em **Grid 4 Colunas** (1280px+), responsivo em tablets e mobile.
 ```
 ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
 │ Taxa Ocup.   │ │ Custo Contr.  │ │ Qualidade    │ │ Salário vs M.│
-│ 93.2%        │ │ R$ 3.2k      │ │ 8.4/10       │ │ +12.5%       │
+│ 96.5%        │ │ R$ 3.2k      │ │ 8.4/10       │ │ +12.5%       │
 │ Meta: 95%    │ │ Budget: 4.5k │ │ Meta: 8.0    │ │ Acima Setor  │
 │ ✅ Acima     │ │ ✅ 29% ↓     │ │ ✅ Em Alta   │ │ ✅ Positivo  │
 └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘
 
 ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
 │ Benefícios   │ │ Retenção     │ │ Vagas Abertas│ │ Trabalho Rem.│
-│ 8.2/10       │ │ ⚠️ Crítico   │ │ 12 dias      │ │ +340%        │
+│ 8.2/10       │ │ ❌ Crítico   │ │ 12 dias      │ │ +340%        │
 │ 82% Competit.│ │ 5 Cargos      │ │ R$ 450/dia   │ │ vs Presencial│
-│ ✅ Bom       │ │ ❌ Risco Alto │ │ ⚠️ Atenção  │ │ ✅ Tendência │
+│ ✅ Bom       │ │ Risco Alto    │ │ ⚠️ Atenção  │ │ ✅ Tendência │
 └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘
 ```
 
@@ -126,17 +126,16 @@ Organização em **Grid 4 Colunas** (1280px+), responsivo em tablets e mobile.
 │ 📅 ATIVIDADES RECENTES - ÚLTIMOS 7 DIAS                      │
 ├──────────────────────────────────────────────────────────────┤
 │ • 08/12 - 14:30 | Maria Silva criou Proposta #145            │
-│   Transferência: Analista Junior → Senior (TI)               │
+│   Inclusão: +1 Dev Pleno em TI                               │
 │                                                               │
 │ • 07/12 - 09:15 | RH aprovou Normalização Quadro Previsto   │
-│   Período: 01/12/2025 - 30/11/2025 | 45 alterações          │
+│   Período: 01/12/2024 - 30/11/2025 | 45 alterações          │
 │                                                               │
 │ • 06/12 - 16:45 | João Santos desligou-se                    │
 │   Impacto: -1 vaga em "Gerente de Projetos" (TI)            │
 │                                                               │
-│ • 05/12 - 11:20 | Admissão: Carlos Mendes                    │
-│   Cargo: Dev Full Stack (Confirmado: Dev Junior)             │
-│   ⚠️ Discrepância: Cargo ≠ Vaga (Permitido)                  │
+│ • 05/12 - 11:20 | Admissão Agendada: Ana Beatriz             │
+│   Previsão: 15/01/2026 | Posto: DEV001 (Dev Pleno)        │
 │                                                               │
 │ [📋 Ver Histórico Completo...]                               │
 └──────────────────────────────────────────────────────────────┘
@@ -174,18 +173,18 @@ Organização em **Grid 4 Colunas** (1280px+), responsivo em tablets e mobile.
 ## 2️⃣ MÓDULO: QUADRO DE LOTAÇÃO
 
 ### 2.1 Visão Geral
-Gerenciamento estruturado do quadro autorizado de funções e vagas. Permite CRUD de vagas, definição de permissões, visualização de cargos previstos, reservas e exceções de usuário.
+Gerenciamento estruturado do quadro autorizado de vagas por Posto de Trabalho. Permite gerenciar vagas, definir permissões, controlar reservas (vagas em seletivo) e configurar exceções de usuário.
 
 ### 2.2 Estrutura de Navegação
 
 ```
 QUADRO DE LOTAÇÃO (Menu Principal)
-├── 1. MANUTENÇÃO DO QUADRO
-│   └── Tabela: Empresa, Centro Custo, Posto Trabalho, Cargo, Vagas Previstas
-│       ├── [+] Novo Cargo
-│       ├── [✏️] Editar
-│       ├── [🗑️] Deletar
-│       └── [📋] Detalhes
+├── 1. MANUTENÇÃO DO QUADRO (Vagas por Posto)
+│   └── Tabela: Posto de Trabalho, Vagas Previstas, Efetivas, Reservadas
+│       ├── [+] Adicionar Posto ao Quadro
+│       ├── [✏️] Editar Vagas
+│       ├── [🗑️] Remover do Quadro
+│       └── [📋] Detalhes do Posto
 │
 ├── 2. FUNÇÕES (Permissões)
 │   └── Tabela: Função, Descrição, Permissões (Incluir, Alterar, Deletar)
@@ -193,18 +192,12 @@ QUADRO DE LOTAÇÃO (Menu Principal)
 │       ├── [✏️] Editar
 │       └── [🗑️] Deletar
 │
-├── 3. CARGOS PREVISTOS
-│   └── Tabela: Cargo, Estrutura, Classe, Nível, Percentual
-│       ├── [+] Novo Cargo
-│       ├── [✏️] Editar
-│       └── [🗑️] Deletar
-│
-├── 4. RESERVAS
-│   └── Tabela: Vaga, Status Seletivo, Data Abertura, Candidatos
+├── 3. RESERVAS (Vagas em Seletivo)
+│   └── Tabela: Posto, Status Seletivo, Data Abertura, Candidatos
 │       ├── [✏️] Editar Status
 │       └── [📊] Ver Detalhes Seletivo
 │
-└── 5. DEFINIÇÕES POR USUÁRIO
+└── 4. DEFINIÇÕES POR USUÁRIO (Exceções)
     └── Tabela: Usuário, Permissão Transferência, Permissão Admissão
         ├── [+] Adicionar Usuário
         ├── [✏️] Editar
@@ -220,44 +213,46 @@ Permitir criação, edição e visualização do quadro autorizado de vagas por 
 
 | Campo | Tipo | Obrigatório | Descrição |
 |-------|------|-------------|-----------|
-| **Empresa** | Select | ✅ | Filial selecionada |
-| **Centro de Custo** | Select Hier. | ✅ | Departamento/Área |
-| **Posto de Trabalho** | Select | ✅ | Ex: "Service Desk - Analyst" |
-| **Cargo** | Select | ✅ | Cargo associado |
-| **Cargo da Vaga** | Text | ⭕ | Campo customizado (diferente do cargo real) |
-| **Vagas Previstas** | Number | ✅ | Quantidade autorizada |
-| **Vagas Efetivas** | Number (RO) | 🔒 | Read-only (atualiza automático) |
-| **Vagas Reservadas** | Number (RO) | 🔒 | Read-only (atualiza automático) |
-| **Data Início Controle** | Date | ✅ | Quando começou o controle |
+| **Posto de Trabalho** | Select | ✅ | Posto já cadastrado (ex: "DEV001 - Dev Backend Pleno TI Noturno"). As características do posto (Centro Custo, Cargo, Turno, etc.) são definidas no cadastro do posto |
+| **Vagas Previstas** | Number | ✅ | Quantidade autorizada para este posto |
+| **Vagas Efetivas** | Number (RO) | 🔒 | Read-only (colaboradores alocados no posto - atualiza automático) |
+| **Vagas Reservadas** | Number (RO) | 🔒 | Read-only (vagas em processo seletivo - atualiza automático) |
+| **Data Início Controle** | Date | ✅ | Quando começou o controle deste posto |
 | **Tipo Controle** | Select | ✅ | Diário / Por Competência (mensal) |
-| **Observações** | Text Area | ⭕ | Notas gerenciais |
-| **Ativo** | Checkbox | ✅ | Flag de ativação |
+| **Observações** | Text Area | ⭕ | Notas gerenciais sobre este posto |
+| **Ativo** | Checkbox | ✅ | Se o posto está ativo no quadro |
+
+**Nota Importante:** O Posto de Trabalho é selecionado de uma lista pré-cadastrada. Para criar um novo posto com suas características (Centro de Custo, Cargo, Turno, Filial, etc.), utilize o cadastro específico de Postos de Trabalho no módulo de Tabelas do sistema.
 
 #### Interface - Tabela Principal
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│ MANUTENÇÃO DO QUADRO                      [+ Novo Cargo]              │
-├────────────────────────────────────────────────────────────────────────┤
-│ Filtros: [Empresa ▼] [Centro Custo ▼] [Tipo Controle ▼] [Buscar...]   │
-├────────────────────────────────────────────────────────────────────────┤
-│ Centro │ Posto de Trabalho │ Cargo │ Prev │ Efet │ Reserv │ Ações    │
-│─────────────────────────────────────────────────────────────────────────│
-│ TI     │ Service Desk      │ Analista Pl. │ 5 │ 4 │ 1 │ [✏️] [📋] │
-│ TI     │ Service Desk      │ Assistente Jr.│ 0 │ 0 │ 0 │ [✏️] [📋] │
-│ TI     │ Dev Full Stack    │ Dev Pleno    │ 8 │ 7 │ 2 │ [✏️] [📋] │
-│ RH     │ Gerente RH        │ Gerente      │ 1 │ 1 │ 0 │ [✏️] [📋] │
-│ ADM    │ Administrativo    │ Admin        │ 3 │ 3 │ 0 │ [✏️] [📋] │
-└────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ MANUTENÇÃO DO QUADRO                         [+ Adicionar Posto ao Quadro] │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Filtros: [Empresa ▼] [Centro Custo ▼] [Cargo ▼] [Tipo Controle ▼] [Buscar]│
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Código │ Posto de Trabalho                    │ Prev │ Efet │ Res │ Ações │
+│─────────────────────────────────────────────────────────────────────────────│
+│ DEV001 │ Dev Backend Pleno - TI - Noturno     │ 8    │ 7    │ 2   │[✏️][📋]│
+│ DEV002 │ Dev Frontend Senior - TI - Diurno    │ 5    │ 4    │ 1   │[✏️][📋]│
+│ GER001 │ Gerente Projetos - TI - Diurno       │ 1    │ 1    │ 0   │[✏️][📋]│
+│ RH001  │ Analista RH Pleno - RH - Diurno      │ 3    │ 3    │ 0   │[✏️][📋]│
+│ ADM001 │ Assistente Admin - ADM - Diurno      │ 2    │ 2    │ 0   │[✏️][📋]│
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+**Nota:** A descrição completa do posto (incluindo Centro de Custo, Cargo, Turno, Filial, Local) aparece na coluna "Posto de Trabalho". Ao clicar em [📋 Detalhes], todas as características do posto são exibidas.
 
 #### Ações Disponíveis
 
-**[+ Novo Cargo]**
+**[+ Adicionar Posto ao Quadro]**
 - Abre Modal/Slide-in com formulário
-- Campos: Centro Custo, Posto, Cargo, Vagas, Tipo Controle, etc.
+- Campo principal: **Dropdown de Postos de Trabalho** (lista todos os postos cadastrados no sistema)
+- Campos adicionais: Vagas Previstas, Data Início Controle, Tipo Controle, Observações
 - Botões: Salvar, Cancelar
-- Validação: Verificar duplicata (Centro + Posto + Cargo)
+- Validação: Verificar se o posto já está no quadro (não permite duplicata)
+- **Nota:** Se o posto desejado não existe, orientar usuário a cadastrá-lo primeiro em Tabelas > Postos de Trabalho
 
 **[✏️ Editar]**
 - Abre formulário pre-preenchido
@@ -310,39 +305,7 @@ Definir permissões granulares para cada função ao gerenciar quadro de vagas.
 └──────────────────────────────────────────────────────────────┘
 ```
 
-### 2.5 Sub-módulo 3: Cargos Previstos
-
-#### Objetivo
-Cadastro de cargos com estrutura organizacional, classe e nível para suporte à normalização.
-
-#### Campos
-
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| **Cargo** | Text | Nome (ex: "Analista de Sistemas Pleno") |
-| **Estrutura** | Select | Classificação organizacional |
-| **Classe** | Select | Faixa salarial / Categoria |
-| **Nível** | Select | Hierarquia (Pleno, Junior, Senior, etc) |
-| **Percentual** | Number | % de comissão/benefício (se aplicável) |
-| **Descrição** | Text Area | Detalhes do cargo |
-| **Ativo** | Checkbox | Flag de ativação |
-
-#### Interface
-
-```
-┌────────────────────────────────────────────────────────────────────┐
-│ CARGOS PREVISTOS                         [+ Novo Cargo]            │
-├────────────────────────────────────────────────────────────────────┤
-│ Cargo │ Estrutura │ Classe │ Nível │ % │ Ações                    │
-│───────────────────────────────────────────────────────────────────│
-│ Dev Full Stack │ TI │ Classe C │ Pleno │ 10 │ [✏️] [📋]           │
-│ Gerente Projeto│ TI │ Classe B │ Senior│ 15 │ [✏️] [📋]           │
-│ Assistente Jr. │ TI │ Classe D │ Junior│ 0  │ [✏️] [📋]           │
-│ Analista RH    │ RH │ Classe C │ Pleno │ 8  │ [✏️] [📋]           │
-└────────────────────────────────────────────────────────────────────┘
-```
-
-### 2.6 Sub-módulo 4: Reservas
+### 2.5 Sub-módulo 3: Reservas
 
 #### Objetivo
 Controlar vagas em processo de seletivo (reservadas para recrutamento).
@@ -351,7 +314,7 @@ Controlar vagas em processo de seletivo (reservadas para recrutamento).
 
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
-| **Vaga** | Link | Referência ao Posto de Trabalho |
+| **Posto de Trabalho** | Select | Referência ao Posto de Trabalho que está em processo seletivo |
 | **Status** | Select | Aberto / Em Triagem / Entrevista / Oferta / Fechado |
 | **Data Abertura** | Date | Quando o seletivo começou |
 | **Data Previsão** | Date | Quando se espera preencher |
@@ -366,11 +329,11 @@ Controlar vagas em processo de seletivo (reservadas para recrutamento).
 ┌──────────────────────────────────────────────────────────────────┐
 │ RESERVAS - VAGAS EM SELETIVO                                     │
 ├──────────────────────────────────────────────────────────────────┤
-│ Vaga │ Status │ Abertura │ Previsão │ Candidatos │ Ações         │
+│ Posto de Trabalho            │ Status │ Abert. │ Prev. │ Cand. │ Ações│
 │──────────────────────────────────────────────────────────────────│
-│ Dev FS │ Entrevista │ 01/12 │ 20/12 │ 5/45 │ [✏️] [📊]           │
-│ Gerente│ Em Triagem │ 03/12 │ 15/01 │ 12/87 │ [✏️] [📊]          │
-│ Admin  │ Aberto │ 05/12 │ 22/12 │ 3/18 │ [✏️] [📊]              │
+│ DEV001 - Dev Backend Pleno TI│ Entrevist│ 01/12 │ 20/12 │ 5/45  │[✏️][📊]│
+│ GER001 - Gerente Proj. TI    │ Triagem  │ 03/12 │ 15/01 │ 12/87 │[✏️][📊]│
+│ ADM001 - Assistente Admin    │ Aberto   │ 05/12 │ 22/12 │ 3/18  │[✏️][📊]│
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -388,21 +351,21 @@ Exceções de permissionamento: usuários específicos que ignoram configuraçõ
 | Campo | Tipo | Descrição |
 |-------|------|-----------|
 | **Usuário** | Select Lookup | Colaborador que terá permissão excepcional |
-| **Ver Quadro Admissão** | Select | Verificar Vagas + Permitir / Verificar + Bloquear / Não Verificar |
-| **Ver Quadro Transferências** | Select | Verificar Vagas + Permitir / Verificar + Bloquear / Não Verificar |
+| **Ver Quadro Admissão** | Select | Verificar vagas disponíveis e permitir/bloquear admissão, ou não verificar |
+| **Ver Quadro Transferências** | Select | Verificar vagas disponíveis e permitir/bloquear transferência, ou não verificar |
 | **Observação** | Text Area | Por que este usuário é exceção |
 
 #### Opções por Campo
 
 **Ver Quadro Admissão:**
-- ✅ Verificar vagas existentes e permitir incluir
-- ⚠️ Verificar vagas existentes e não permitir incluir
-- ❌ Não verificar a existência de vagas
+- ✅ Verificar vagas disponíveis e permitir admissão
+- ⚠️ Verificar vagas disponíveis e bloquear admissão
+- ❌ Não verificar vagas (permitir admissão sem vaga)
 
 **Ver Quadro Transferências:**
-- ✅ Verificar vagas existentes e permitir incluir
-- ⚠️ Verificar vagas existentes e não permitir incluir
-- ❌ Não verificar a existência de vagas
+- ✅ Verificar vagas disponíveis e permitir transferência
+- ⚠️ Verificar vagas disponíveis e bloquear transferência
+- ❌ Não verificar vagas (permitir transferência sem vaga)
 
 #### Interface
 
@@ -467,12 +430,11 @@ Gerenciar o quadro de vagas previstas com suporte a múltiplos tipos de controle
 ├──────────────────────────────────────────────────────────────────┤
 │                                                                   │
 │ [1] EFETIVO PARA PREVISTO                                        │
-│ Apurar a quantidade de colaboradores efetivos em uma data e      │
-│ gravá-lo como previsto                                           │
+│ Apurar a quantidade de colaboradores alocados em cada posto e    │
+│ gravá-lo como quadro previsto                                     │
 │                                                                   │
 │ Data Históricos:        [__ / __ / ____]  (dd/mm/aaaa)          │
-│ (Data considerada na busca dos históricos de local/centro custo, │
-│  cargo e turno)                                                  │
+│ (Data para buscar os colaboradores alocados em cada posto)        │
 │                                                                   │
 │ Data Geração:           [__ / __ / ____]  (dd/mm/aaaa)          │
 │ (Data que será gravada no quadro previsto)                       │
@@ -508,10 +470,19 @@ Gerenciar o quadro de vagas previstas com suporte a múltiplos tipos de controle
 #### Comportamento
 
 **Efetivo para Previsto:**
-1. Busca colaboradores ativos na "Data Históricos"
-2. Agrega por (Centro Custo, Cargo, Turno)
-3. Grava quantidades como "Previsto" na "Data Geração"
-4. Cria registro de auditoria (QUEM, QUANDO, AÇÃO)
+1. Busca todos os colaboradores ativos na "Data Históricos"
+2. Identifica o Posto de Trabalho de cada colaborador
+3. Conta quantos colaboradores estão alocados em cada posto
+4. Grava essas quantidades como "Vagas Previstas" na "Data Geração"
+5. Cria registro de auditoria (QUEM, QUANDO, AÇÃO, POSTOS AFETADOS)
+
+**Exemplo:**
+- Data Históricos: 15/12/2025
+- Colaboradores encontrados:
+  - 8 em DEV001 (Dev Backend Pleno TI)
+  - 3 em RH001 (Analista RH Pleno)
+  - 5 em ADM001 (Assistente Admin)
+- Resultado: Quadro previsto em 01/01/2026 terá DEV001=8, RH001=3, ADM001=5
 
 **Previsto para Previsto:**
 1. Copia quadro da "Data Quadro"
@@ -551,7 +522,9 @@ A normalização **agora processa TODOS os postos de trabalho** dentro do perío
 │                                                                   │
 │ Gerar quadro efetivo com base no período informado               │
 │                                                                   │
-│ Este processo irá assumir o atual quadro de colaboradores de     │
+│ Este processo irá contar quantos colaboradores estão alocados em │
+│ cada Posto de Trabalho, considerando as movimentações de pessoal  │
+│ (admissões, transferências, desligamentos) no período informado.  │
 │ cada local/centro de custo, cargo e turno como sendo o Quadro    │
 │ Efetivo. As alterações nos históricos de local/centro de custo,  │
 │ cargo e turno dos colaboradores serão consideradas no período    │
@@ -600,18 +573,25 @@ A normalização **agora processa TODOS os postos de trabalho** dentro do perío
 
 3. **Para cada Posto:**
    - Busca todas as movimentações (admissões, transferências, desligamentos) no período
-   - Agrupa colaboradores por (Centro Custo, Cargo, Turno)
-   - Contabiliza estado final (ocupado/desocupado)
+   - Conta quantos colaboradores estão alocados no posto em cada data de movimentação
+   - Identifica o Posto através das características do colaborador (Centro Custo, Cargo, Filial, Local, Turno, etc.)
+   - Contabiliza estado final (quantidade de colaboradores alocados)
    
 4. **Considerações Especiais:**
-   - Se utilizar "Cargo da Vaga", normalização considera este campo
+   - Sistema identifica o posto automaticamente pelas características do colaborador
    - Processo **não considera** indicação de módulos ao contar colaboradores
    - Movimentações posteriores ao "Período Final" **ficam de fora** da normalização
 
 5. **Resultado:**
-   - Atualiza tabela "Quadro Efetivo" com valores consolidados
+   - Atualiza "Vagas Efetivas" de cada Posto no quadro
    - Cria logs de auditoria para cada Posto atualizado
    - Exibe resumo: "✅ 87 postos normalizados, 3 erros" (com detalhes)
+   
+**Exemplo prático:**
+- Posto DEV001: Dev Backend Pleno - TI - Noturno
+- Sistema busca colaboradores com: Centro=TI, Cargo=Dev Backend (qualquer nível), Turno=Noturno
+- Encontra: 7 Dev Pleno + 1 Dev Junior = 8 colaboradores
+- Atualiza: DEV001.VagasEfetivas = 8
 
 #### Botão: Processar Normalização
 

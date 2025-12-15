@@ -8,23 +8,23 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ [START] CRIAÇÃO DE VAGA                                     │
-│ Cenário: Empresa precisa de mais 1 Dev Pleno em TI         │
+│ Cenário: Empresa precisa aumentar vagas em posto existente │
+│ Posto: DEV001 - Dev Backend Pleno - TI - Noturno           │
 └─────────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────────┐
 │ ETAPA 1: PLANEJAMENTO                                       │
 │                                                              │
 │ • Gerente acessa "Quadro de Lotação" → "Manutenção"        │
-│ • Clica [+ Novo Cargo]                                      │
-│ • Preenche:                                                 │
-│   - Centro: TI                                              │
-│   - Posto: Dev Full Stack                                   │
-│   - Cargo: Dev Pleno                                        │
+│ • Clica [+ Adicionar Posto ao Quadro] ou [✏️ Editar]      │
+│ • Seleciona Posto: DEV001 - Dev Backend Pleno - TI - Noturno│
+│   (Posto já cadastrado com suas características)            │
+│ • Altera:                                                   │
 │   - Vagas Previstas: 8 → 9 (aumento de 1)                  │
 │   - Motivo: "Crescimento projeto X"                        │
 │                                                              │
-│ ✅ RESULTADO: Vaga criada em STATUS "RASCUNHO"            │
-│ 📝 AUDITORIA: "Maria Silva criou vaga" (08/12 14:30)       │
+│ ✅ RESULTADO: Alteração salva (pode requerer aprovação)   │
+│ 📝 AUDITORIA: "Maria Silva aumentou vagas" (08/12 14:30)   │
 └─────────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────────┐
@@ -65,11 +65,13 @@
 │ ETAPA 3: APLICAÇÃO NO QUADRO                               │
 │                                                              │
 │ • Sistema atualiza "Quadro de Lotação":                     │
+│   - Posto: DEV001 - Dev Backend Pleno - TI - Noturno       │
 │   - Vagas Previstas: 8 → 9                                  │
 │   - Status: "Ativo"                                         │
 │                                                              │
 │ • Cria registro em "Histórico de Alterações":              │
 │   - Ação: "Proposta #XXX Efetivada"                         │
+│   - POSTO: DEV001                                           │
 │   - QUEM: RH                                                │
 │   - QUANDO: 08/12/2025 15:45                                │
 │   - ANTES: 8 vagas                                          │
@@ -84,7 +86,8 @@
 ┌─────────────────────────────────────────────────────────────┐
 │ ETAPA 4: RECRUTAMENTO (Reserva)                            │
 │                                                              │
-│ • RH registra vaga em "Reservas"                            │
+│ • RH registra posto em "Reservas"                           │
+│   - Posto: DEV001 - Dev Backend Pleno - TI - Noturno       │
 │   - Status: "Aberto"                                        │
 │   - Data Abertura: 08/12/2025                               │
 │   - Data Previsão: 20/01/2026                               │
@@ -108,37 +111,30 @@
 │ • Candidato vencedor aceita oferta                          │
 │ • RH processa admissão do colaborador:                      │
 │   - Nome: Ana Beatriz                                       │
-│   - Cargo Real: Dev Junior (DIFERENTE! Dev Pleno previsto)│
-│   - Centro: TI                                              │
+│   - Posto: DEV001 (Dev Backend Pleno - TI)                 │
 │   - Data Admissão: 15/01/2026                               │
-│                                                              │
-│ • Sistema detecta DISCREPÂNCIA:                             │
-│   - Cargo Previsto: Dev Pleno                               │
-│   - Cargo Real: Dev Junior                                  │
-│   - Ação Configurada: "ALERTAR" (conforme RN-002)          │
-│   - Log: "⚠️ Discrepância detectada. Permitido."           │
 │                                                              │
 │ • ⚡ NORMALIZAÇÃO AUTOMÁTICA (RN-001):                     │
 │   - Quadro Efetivo atualiza em TEMPO REAL                   │
-│   - Antes: 7 efetivas em Dev Pleno                          │
-│   - Depois: 8 efetivas em Dev Junior (+ novo cargo)        │
+│   - Colaborador alocado no posto DEV001                     │
+│   - Vagas Efetivas do posto: 7 → 8                          │
 │   - Vagas Reservadas: 1 → 0 (seletivo fechado)             │
 │                                                              │
 │ ✅ COLABORADOR ADMITIDO                                     │
 │ 📝 AUDITORIA: "Ana Beatriz admitida - 15/01/2026"          │
-│ 📊 IMPACTO QUADRO:                                          │
+│ 📊 IMPACTO QUADRO (Posto DEV001):                          │
 │    - Vagas Previstas: 9 (inalterado)                        │
 │    - Vagas Efetivas: 8 (+1)                                 │
 │    - Vagas Reservadas: 0 (-1)                               │
-│    - Taxa Ocupação: 88%                                     │
+│    - Taxa Ocupação: 89%                                     │
 │                                                              │
 │ 📋 HISTÓRICO:                                               │
 │    Ação: "Admissão"                                         │
+│    POSTO: DEV001                                            │
+│    COLABORADOR: Ana Beatriz                                 │
 │    QUEM: RH                                                 │
 │    QUANDO: 15/01/2026 10:30                                 │
 │    MOTIVO: "Seletivo finalizado"                            │
-│    ANTES: 7 dev, 0 admin, 1 reserva                         │
-│    DEPOIS: 7 dev pleno + 1 dev junior, 0 reserva           │
 └─────────────────────────────────────────────────────────────┘
                         ↓
 ┌─────────────────────────────────────────────────────────────┐
@@ -186,7 +182,7 @@
 │ ✅ Aprovações em 3 níveis + RH                             │
 │ ✅ Efetivação no Quadro                                    │
 │ ✅ Alocação em Reserva                                     │
-│ ✅ Admissão com Discrepância registrada                    │
+│ ✅ Admissão de colaborador registrada                       │
 │ ✅ Normalização periódica                                  │
 │ ✅ Todos os movimentos auditados                           │
 └─────────────────────────────────────────────────────────────┘
@@ -254,65 +250,9 @@ Centro: TI
 
 ---
 
-## 🔄 FLUXO 3: ALTERAÇÃO COM DISCREPÂNCIA DE CARGO
-
-### Cenário: Cargo Previsto ≠ Cargo Real
+## 🔄 FLUXO 3: NORMALIZAÇÃO PERIÓDICA
 
 ```
-CONFIGURAÇÃO DO SISTEMA (RN-002):
-Modo: BLOQUEAR (Impede admissão se cargo diferente)
-
-┌─────────────────────────────────────────────────────────────┐
-│ [START] ADMISSÃO COM DISCREPÂNCIA                           │
-│                                                              │
-│ Vaga Prevista: "Dev Full Stack" (Cargo Pleno)              │
-│ Candidato Selecionado: Ana Beatriz                          │
-│ Cargo Real da Contratação: Dev Junior (DIFERENTE!)         │
-└─────────────────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────────────────┐
-│ SISTEMA VALIDA NA ADMISSÃO                                 │
-│                                                              │
-│ • RH tenta processar admissão                               │
-│ • Sistema compara: Cargo Previsto vs Cargo Real             │
-│ • RESULTADO: ❌ BLOQUEADO                                  │
-│   Mensagem: "Cargo real (Dev Junior) ≠ Vaga prevista      │
-│    (Dev Pleno). Modo: BLOQUEAR. Solicite aprovação."       │
-└─────────────────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────────────────┐
-│ RH CRIA PROPOSTA DE ALTERAÇÃO                              │
-│                                                              │
-│ • Clica [Criar Exceção] ou [Nova Proposta]                 │
-│ • Tipo: "Alteração de Cargo"                                │
-│ • Descrição: "Dev Junior em lugar de Dev Pleno"             │
-│ • Justificativa: "Mercado competitivo, aceitar Junior"      │
-│ • Cargo Novo: Dev Junior                                    │
-│ • Vagas: 1 (manter)                                         │
-│                                                              │
-│ • Envia para aprovação (3 níveis + RH)                     │
-│ • Aprovadores recebem notificação com contexto              │
-│   "⚠️ Alteração: Dev Pleno → Dev Junior"                   │
-└─────────────────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────────────────┐
-│ WORKFLOW DE APROVAÇÃO (Similar ao Fluxo 1)                │
-│                                                              │
-│ N1 → N2 → N3 → RH                                           │
-│ Cada um aprova/rejeita com comentário                       │
-│                                                              │
-│ RESULTADO: ✅ APROVADA                                      │
-│ "Permitido contratar como Dev Junior neste ciclo"          │
-└─────────────────────────────────────────────────────────────┘
-                        ↓
-┌─────────────────────────────────────────────────────────────┐
-│ QUADRO ATUALIZADO + ADMISSÃO PROSSEGUE                     │
-│                                                              │
-│ • Proposta efetivada                                        │
-│ • Quadro de Lotação atualizado:                             │
-│   - Dev Pleno: 8 → 7                                        │
-│   - Dev Junior: 0 → 1 (novo cargo)                          │
-│                                                              │
 │ • RH retorna e processa admissão de Ana:                   │
 │   - ✅ Sistema valida novamente                             │
 │   - "Dev Junior agora está previsto, OK!"                   │
@@ -402,16 +342,6 @@ EXEMPLO - APÓS CONTRATAR 2 PcD:
 - **Atualização:** Quadro Efetivo sincronizado
 - **Auditoria:** QUEM, QUANDO, ANTES, DEPOIS registrados
 - **Exceções:** Nenhuma (automático sempre)
-
-### RN-002: Cargo vs Cargo da Vaga ✅
-- **Definição:** Cargo Previsto pode ser diferente do Cargo Real
-- **Detecção:** Validação na admissão
-- **Ações Configuráveis:**
-  - **ALERTAR:** Log de discrepância, mas permite
-  - **PERMITIR:** Sem restrição
-  - **BLOQUEAR:** Impede admissão, exige aprovação
-  - **EXIGIR APROVAÇÃO:** Workflow adicional de 3 níveis
-- **Rastreabilidade:** Todos os casos registrados na timeline
 
 ### RN-003: Controle PcD ✅
 - **Integração:** Flag no quadro, contadores globais
@@ -632,22 +562,7 @@ Ação no Sistema: Badge no Dashboard, filtro em Propostas
 10. Quadro atualiza, timeline registra, notificações enviadas
 **Resultado:** ✅ Vaga criada e rastreada
 
-### UC2: Admissão com Cargo Diferente
-**Ator:** RH Operacional
-**Precondição:** Vaga existe em quadro, candidato selecionado
-**Passos:**
-1. Tenta processar admissão no RH Legado
-2. Sistema recebe evento (integração)
-3. Valida: Cargo Real ≠ Cargo Previsto
-4. Ação configurada: BLOQUEAR
-5. Sistema retorna erro "Cargo diferente"
-6. RH cria Proposta de Alteração
-7. Workflow aprova cargo novo
-8. RH retoma admissão
-9. Sistema agora permite, quadro atualiza
-**Resultado:** ✅ Admissão autorizada com rastreabilidade
-
-### UC3: Verificar Conformidade PcD
+### UC2: Verificar Conformidade PcD
 **Ator:** Gerente RH
 **Precondição:** Sistema com dados de PcD alimentados
 **Passos:**
