@@ -7,9 +7,14 @@
 - **Data:** 10 de Dezembro de 2025
 - **Versão:** 1.0 - Estrutura Base
 - **Status:** Em Desenvolvimento
-- **Plataforma:** Lovable.dev (Framework agnóstico + Senior Design System)
+- **Plataforma:** Framework agnóstico (equipe escolhe stack)
 - **Público:** Desenvolvedores Frontend/Backend, Product Managers, UX Designers
-- **Restrições Obrigatórias:** ✅ Senior Design System | ✅ Platform Authentication | ✅ Platform Authorization | ✅ Platform Notifications
+- **ÚNICOS REQUISITOS OBRIGATÓRIOS:**
+  - ✅ **Senior Design System** (UI/UX)
+  - ✅ **Platform Authentication** (Autenticação centralizada)
+  - ✅ **Platform Authorization** (Controle de acesso)
+  - ✅ **Platform Notifications** (Notificações multicanal)
+- **Todo o resto é agnóstico:** Linguagens, frameworks, bancos de dados, cloud, etc.
 
 ---
 

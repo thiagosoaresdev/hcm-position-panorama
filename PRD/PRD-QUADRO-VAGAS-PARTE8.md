@@ -950,11 +950,12 @@ Database_Configuration:
     contractual_safeguards: SCC_APPLIED  # Standard Contractual Clauses
     data_residency_note: "Transferência internacional protegida por SCC"
 
-# Aplicável em:
+# Exemplos de implementação (escolher conforme arquitetura):
 # - AWS: RDS, S3, DynamoDB
-# - Azure: SQL Database, Cosmos DB, Storage
+# - Azure: SQL Database, Cosmos DB, Storage  
 # - GCP: Cloud SQL, Firestore, Cloud Storage
-# - On-premise: Configurar datacenter brasileiro
+# - On-premise: Datacenter brasileiro
+# - Hybrid: Combinação de cloud + on-premise
 ```
 
 ---

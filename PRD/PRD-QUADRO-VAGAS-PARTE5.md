@@ -29,17 +29,17 @@
 └─────────┘  └─────────────┘  └──────────┘  └────────────┘
     ↓               ↓               ↓               ↓
 ┌─────────────────────────────────────────────────────────────┐
-│               DATABASES E DATASTORES                         │
-│  • PostgreSQL (dados principais)                            │
-│  • Redis (cache, sessions)                                  │
-│  • Elasticsearch (logs, auditoria, full-text search)        │
-│  • S3/Blob Storage (anexos, relatórios)                     │
+│          DATABASES E DATASTORES (Sugestões)                  │
+│  • Banco Relacional (ex: PostgreSQL, MySQL, SQL Server)     │
+│  • Cache (ex: Redis, Memcached)                             │
+│  • Search/Logs (ex: Elasticsearch, Solr, Splunk)            │
+│  • Blob Storage (ex: S3, Azure Blob, MinIO)                 │
 └─────────────────────────────────────────────────────────────┘
     ↓               ↓               ↓
 ┌──────────────┐  ┌─────────┐  ┌──────────────┐
-│ Glassdoor    │  │LinkedIn │  │Google Cloud  │
-│ Market Data  │  │Trends   │  │BigQuery (IA) │
-│ (Manual)     │  │(Manual) │  │(ML Models)   │
+│ Market Data  │  │Skills   │  │IA/ML (Opcion)│
+│ (Opcional)   │  │Trends   │  │(Qualquer)    │
+│ Glassdoor,etc│  │(Opciona)│  │BigQuery,etc  │
 └──────────────┘  └─────────┘  └──────────────┘
 ```
 
@@ -772,10 +772,12 @@ Response:
 
 ---
 
-## 📊 INTEGRAÇÃO 5: MARKET DATA ANALYTICS (Glassdoor, LinkedIn)
+## 📊 INTEGRAÇÃO 5: MARKET DATA ANALYTICS - OPCIONAL
 
 ### 5.1 Objetivo
 Importar dados de mercado mensalmente para análise competitiva.
+
+**Nota:** Esta integração é **OPCIONAL**. Pode usar Glassdoor, LinkedIn ou qualquer outra fonte de dados de mercado.
 
 ### 5.2 Fontes Externas
 
@@ -910,10 +912,12 @@ Scheduled_Job:
 
 ---
 
-## 🤖 INTEGRAÇÃO 6: IA / BIGQUERY (Previsão de Demanda)
+## 🤖 INTEGRAÇÃO 6: IA/ML (Previsão de Demanda) - OPCIONAL
 
 ### 6.1 Objetivo
 Usar ML models para prever demanda de vagas baseado em histórico + sazonalidade.
+
+**Nota:** Esta integração é **OPCIONAL**. Pode ser implementada com qualquer plataforma de ML (BigQuery ML, Azure ML, AWS SageMaker, TensorFlow, scikit-learn, etc.)
 
 ### 6.2 Arquitetura
 
@@ -925,10 +929,12 @@ DADOS HISTÓRICOS
 ├─ Crescimento histórico
 └─ Turnover por cargo
       ↓
-BIGQUERY ML
-├─ Linear Regression / Time Series
-├─ Séries Temporal (ARIMA)
-└─ XGBoost
+PLATAFORMA ML (Escolher uma):
+├─ BigQuery ML (Google Cloud)
+├─ Azure Machine Learning
+├─ AWS SageMaker
+├─ Python (scikit-learn, TensorFlow, PyTorch)
+└─ R, Julia, ou outra plataforma
       ↓
 MODELO TREINADO
 ├─ Input: Cargo, Período
@@ -936,7 +942,7 @@ MODELO TREINADO
 └─ Features: Histórico, Sazonalidade, Tendência
       ↓
 BACKEND QUADRO VAGAS
-├─ Query modelo via BigQuery API
+├─ Query modelo via API da plataforma escolhida
 ├─ Cache resultados
 ├─ Exibir no Dashboard
 └─ Atualizar mensalmente
@@ -950,7 +956,7 @@ INPUT:
 - Período: "Jan-Mar 2026"
 - Histórico: 12 meses de contratações
 
-MODEL PREDICTION (BigQuery ML):
+MODEL PREDICTION (Exemplo com qualquer plataforma ML):
 {
   "mes": "janeiro_2026",
   "cargo": "Dev Full Stack",
@@ -971,9 +977,14 @@ EXIBIÇÃO NO DASHBOARD:
 └─────────────────────┘
 ```
 
-### 6.4 Query BigQuery
+### 6.4 Exemplo de Implementação (BigQuery ML)
+
+**Nota:** Este é apenas UM exemplo. Pode ser implementado com qualquer plataforma ML.
 
 ```sql
+-- EXEMPLO usando BigQuery ML (Google Cloud)
+-- Pode ser adaptado para Azure ML, AWS SageMaker, Python, etc.
+
 -- Modelo de Previsão de Demanda
 CREATE OR REPLACE MODEL `projeto.dataset.predicao_vagas`
 OPTIONS(

@@ -27,11 +27,11 @@
 ## 🚀 ROADMAP DE DESENVOLVIMENTO
 
 ### FASE 1: Setup e Fundações (Semana 1-2)
-- [ ] Criar repositório Angular 9+ com PrimeNG
+- [ ] Criar repositório com framework escolhido
 - [ ] Configurar autenticação (Platform Authentication API)
 - [ ] Implementar autorização (RBAC/ACL)
-- [ ] Setup de banco de dados (PostgreSQL)
-- [ ] Integração com notifications API
+- [ ] Setup de banco de dados (escolher: PostgreSQL, MySQL, SQL Server, etc.)
+- [ ] Integração com notifications API (Platform Notifications)
 - [ ] Criar base de componentes SDS
 
 **Entregáveis:**
@@ -42,7 +42,7 @@
 
 ### FASE 2: Módulo Dashboard (Semana 3-4)
 - [ ] Implementar cards de KPIs
-- [ ] Previsão IA (consumir BigQuery)
+- [ ] Previsão IA (opcional - qualquer plataforma ML)
 - [ ] Insights & Recomendações
 - [ ] Timeline de Atividades
 - [ ] Filtros globais
@@ -97,7 +97,7 @@
 ### FASE 6: Analytics (Semana 13-14)
 - [ ] Dashboard Analytics
 - [ ] Consulta Vagas Previstas
-- [ ] Parâmetros de Comparação
+- [ ] Parâmetros de Comparação (Market Data - opcional)
 - [ ] Ocupação de Vagas
 - [ ] PcD Conformidade
 - [ ] Exportação (Excel, PDF, CSV)
@@ -108,12 +108,12 @@
 - ✅ Exportação funcionando
 - ✅ Cálculo PcD 100% correto
 
-### FASE 7: Integrações Externas (Semana 15-16)
-- [ ] Market Data (Glassdoor/LinkedIn - import mensal)
-- [ ] IA/BigQuery (previsões ML)
-- [ ] Webhooks de admissão/transferência/desligamento
-- [ ] Email notifications (template customizadas)
-- [ ] SMS alerts (críticos)
+### FASE 7: Integrações Externas (Semana 15-16) - OPCIONAIS
+- [ ] Market Data (opcional - Glassdoor/LinkedIn ou outras fontes)
+- [ ] IA/ML (opcional - qualquer plataforma: BigQuery, Azure ML, AWS SageMaker, etc.)
+- [ ] Webhooks de admissão/transferência/desligamento (se integrar com RH Legado)
+- [ ] Email notifications via Platform Notifications (templates customizadas)
+- [ ] SMS alerts via Platform Notifications (críticos)
 
 **Entregáveis:**
 - ✅ Market data carregando
@@ -200,11 +200,15 @@
 
 ### Stack - MÚLTIPLAS OPÇÕES (Escolha Livre)
 
-Equipe tem liberdade para escolher a melhor stack baseado em expertise. Todas as opções devem respeitar:
-- **Obrigatório:** Senior Design System (SDS)
-- **Obrigatório:** Platform Authentication API (Senior X)
-- **Obrigatório:** Platform Authorization API (RBAC/ACL)
-- **Obrigatório:** Platform Notifications API (multi-canal)
+Equipe tem liberdade para escolher a melhor stack baseado em expertise. 
+
+**ÚNICOS REQUISITOS OBRIGATÓRIOS:**
+- ✅ **Senior Design System (SDS)** - Componentes de UI
+- ✅ **Platform Authentication** - Autenticação centralizada
+- ✅ **Platform Authorization** - Controle de acesso (RBAC/ACL)
+- ✅ **Platform Notifications** - Notificações multicanal
+
+**TODO O RESTO É AGNÓSTICO (escolha da equipe):**
 
 #### OPÇÃO 1: React.js (Recomendado para Agilidade)
 ```
