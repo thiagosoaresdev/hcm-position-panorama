@@ -332,7 +332,9 @@ Conjunto de vagas autorizadas para um período específico, com:
 
 ## 🎨 TECNOLOGIA & DESIGN
 
-- **Frontend Stack:** Agnóstico (React, Vue, Angular, Flutter, Next.js, etc) - escolher baseado em equipe
+> **NOTA:** Tecnologias mencionadas são apenas SUGESTÕES. Ferramentas de geração de código (Lovable, Bolt, v0, Cursor, etc) têm TOTAL LIBERDADE de escolha técnica.
+
+- **Frontend Stack:** Agnóstico (framework moderno de escolha da ferramenta/equipe)
 - **Design System:** Senior Design System (SDS) - OBRIGATÓRIO
 - **Tipografia:** Open Sans (HTTPS: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i)
 - **Componentes Base:** Implementar conforme SDS guidelines (agnóstico a framework)

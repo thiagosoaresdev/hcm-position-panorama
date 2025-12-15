@@ -174,7 +174,7 @@
 
 | Disciplina | Estimativa | Profissional |
 |-----------|-----------|--------------|
-| **Frontend** | 200h | 2 Devs Angular + 1 UX/UI |
+| **Frontend** | 200h | 2 Devs Frontend + 1 UX/UI |
 | **Backend** | 250h | 2 Devs Backend |
 | **QA** | 100h | 1 QA Analyst |
 | **DevOps** | 60h | 1 DevOps Engineer |
@@ -198,9 +198,11 @@
 
 ## 🏗️ ARQUITETURA TÉCNICA RECOMENDADA
 
+> **IMPORTANTE:** Seções abaixo apresentam EXEMPLOS e SUGESTÕES apenas. Ferramentas de geração de código (Lovable.dev, Bolt.new, v0.dev, Windsurf, Cursor Composer, Replit Agent, etc) têm TOTAL LIBERDADE para escolher tecnologias, frameworks, linguagens e arquiteturas que considerarem mais adequadas.
+
 ### Stack - MÚLTIPLAS OPÇÕES (Escolha Livre)
 
-Equipe tem liberdade para escolher a melhor stack baseado em expertise. 
+Equipe/ferramenta tem liberdade para escolher a melhor stack baseado em expertise. 
 
 **ÚNICOS REQUISITOS OBRIGATÓRIOS:**
 - ✅ **Senior Design System (SDS)** - Componentes de UI
@@ -210,228 +212,105 @@ Equipe tem liberdade para escolher a melhor stack baseado em expertise.
 
 **TODO O RESTO É AGNÓSTICO (escolha da equipe):**
 
-#### OPÇÃO 1: React.js (Recomendado para Agilidade)
-```
-FRONTEND:
-- React 18+ (TypeScript)
-- Vite (build tool - rápido)
-- TailwindCSS ou CSS Modules (sem dependência PrimeNG)
-- Zustand / Jotai (State Management - simples)
-- React Query / SWR (Data fetching)
-- Vitest + React Testing Library (Testes)
-- Vite + Playwright (E2E)
+#### Sugestões de Stacks Frontend
 
-VANTAGENS:
-✅ Comunidade grande
-✅ Curva aprendizado menor (vs Angular)
-✅ Performance excelente
-✅ Ecossistema rico
-✅ Build rápido (Vite)
-✅ Hot module reload nativo
+**A equipe tem liberdade total para escolher a melhor stack.**
 
-DESVANTAGENS:
-❌ Menos opinião (mais decisões)
-❌ State management requer setup
-❌ Menos out-of-box features
-```
+Algumas opções populares (todas viáveis):
 
-#### OPÇÃO 2: Vue 3 (Recomendado para Produtividade)
-```
-FRONTEND:
-- Vue 3 (TypeScript + Composition API)
-- Vite (build tool)
-- Pinia (State Management - elegante)
-- Vue Router (Routing)
-- Vitest (Testes unitários)
-- Playwright (E2E)
+```yaml
+Opcao_1_SPA_Frameworks:
+  exemplos:
+    - Framework moderno com componentes
+    - State management integrado ou externo
+    - Build tools rápidos
+    - Testing libraries
+  
+  vantagens_gerais:
+    - Ecossistema rico
+    - Boa documentação
+    - Performance otimizada
+    - Comunidade ativa
 
-VANTAGENS:
-✅ Curva de aprendizado suave
-✅ Reatividade elegante
-✅ Documentação excelente
-✅ Performance muito boa
-✅ Comunidade crescente
-✅ Composables poderosos
+Opcao_2_Full_Stack_Frameworks:
+  exemplos:
+    - SSR/SSG capabilities
+    - File-based routing
+    - API routes integradas
+    - Otimização automática
+  
+  vantagens_gerais:
+    - SEO-friendly
+    - Performance excelente
+    - Developer experience
+    - Deploy simplificado
 
-DESVANTAGENS:
-❌ Comunidade menor vs React
-❌ Menos libraries third-party
-❌ Menos vagas no mercado
+consideracoes:
+  - Todas as opções são agnósticas
+  - Escolher baseado em expertise da equipe
+  - Avaliar requisitos de SEO/SSR
+  - Considerar ecossistema de bibliotecas
 ```
 
-#### OPÇÃO 3: Angular 14+ (Recomendado para Enterprise)
-```
-FRONTEND:
-- Angular 14+ (TypeScript)
-- RxJS (Observables)
-- NgRx (State Management avançado)
-- Angular Material ou Custom SDS
-- Cypress (E2E)
-- Jasmine/Karma (Unit Tests)
+**Escolha o framework/stack que melhor se adequa:**
+- Experiência da equipe
+- Requisitos do projeto
+- Preferências arquiteturais
+- Necessidades de performance
+- Disponibilidade de bibliotecas/componentes
 
-VANTAGENS:
-✅ Framework completo e opinado
-✅ Typescript nativo
-✅ Dependency injection poderoso
-✅ RxJS para dados complexos
-✅ Ecossistema estável
-✅ Escalável para large teams
+---
 
-DESVANTAGENS:
-❌ Curva de aprendizado steep
-❌ Mais boilerplate
-❌ Build mais lento
-❌ Bundle size maior
-❌ Opinionado demais em alguns casos
-```
-
-#### OPÇÃO 4: Next.js / Nuxt (Recomendado para SSR/Full-stack)
-```
-FRONTEND + BACKEND Integrado:
-
-Next.js (React-based):
-- Next.js 13+ (App Router)
-- TypeScript
-- API Routes (backend no mesmo repo)
-- TailwindCSS
-- Vercel ou self-hosted
-
-Nuxt (Vue-based):
-- Nuxt 3 (Vue 3)
-- TypeScript
-- Nitro server (backend integrado)
-- Auto-imports
-
-VANTAGENS:
-✅ SSR/SSG capabilities
-✅ Melhor SEO
-✅ Backend no mesmo repo
-✅ Deployment simplificado
-✅ Image optimization
-✅ API routes rápidas
-
-DESVANTAGENS:
-❌ Mais complexo que SPA
-❌ Opcionado em arquitetura
-❌ Menos controle server-side
-❌ Pode ser overkill para SPA
-```
-
-#### OPÇÃO 5: Flutter Web (Recomendado para Cross-platform)
-```
-FRONTEND:
-- Flutter 3.0+
-- Dart
-- Material Design 3 (SDS adaptado)
-- Performance nativa
-- Web + Mobile + Desktop (mesmo código)
-
-VANTAGENS:
-✅ True cross-platform
-✅ Performance excelente
-✅ Hot reload
-✅ Material Design built-in
-✅ UI/UX consistente
-✅ Menos código duplicado
-
-DESVANTAGENS:
-❌ Comunidade web menor
-❌ SEO não é forte
-❌ Tamanho build inicial grande
-❌ Aprender Dart necessário
-❌ Menos libraries vs React/Vue
-```
-
-#### OPÇÃO 6: Plain HTML/CSS/JS + Framework Leve (Recomendado para Simplicidade)
-```
-FRONTEND:
-- Vanilla JS / TypeScript
-- HTMX (para interatividade)
-- Alpine.js (para reatividade leve)
-- CSS Grid + Flexbox
-- Web Components (se needed)
-- Minimal dependencies
-
-VANTAGENS:
-✅ Zero fat dependencies
-✅ Máximo controle
-✅ Peso mínimo
-✅ Curva de aprendizado zero
-✅ Performance excelente
-✅ Fácil debugging
-
-DESVANTAGENS:
-❌ Mais tempo de desenvolvimento
-❌ Menos reuso de componentes
-❌ Maior código boilerplate
-❌ Equipe expertise critical
-❌ Difícil escalar
+**IMPORTANTE:** Todas as opções de frontend são agnósticas. A equipe deve escolher baseado em:
+- Expertise disponível
+- Requisitos de SEO/SSR
+- Necessidades de cross-platform
+- Performance esperada
+- Ecossistema de componentes
 ```
 
 ### BACKEND - Opções Agnósticas
 
-```
-OPÇÃO 1: Node.js + Express (JavaScript everywhere)
-- Express / Fastify / Hono
-- PostgreSQL
-- Prisma / TypeORM (ORM)
-- Jest (testes)
-- Docker
+```yaml
+TODOS OS STACKS SÃO AGNÓSTICOS - escolher baseado em:
+- Expertise da equipe
+- Performance requerida
+- Ecossistema de bibliotecas
+- Suporte a integrações Platform
 
-OPÇÃO 2: Python + FastAPI (Rápido + Async)
-- FastAPI / Django
-- PostgreSQL
-- SQLAlchemy (ORM)
-- Pytest (testes)
-- Docker
-
-OPÇÃO 3: Java + Spring Boot (Enterprise)
-- Spring Boot 3
-- PostgreSQL / Oracle
-- Hibernate (ORM)
-- JUnit 5 (testes)
-- Docker
-
-OPÇÃO 4: Golang (Performance + Concurrency)
-- Gin / Echo
-- PostgreSQL
-- GORM (ORM)
-- testing package (testes)
-- Docker
-
-OPÇÃO 5: Rust + Actix (Segurança + Performance)
-- Actix / Rocket / Axum
-- PostgreSQL / SQLx
-- Tokio (async runtime)
-- Cargo test (testes)
-- Docker
-```
-
-**DATABASE COMUM A TODAS (Agnóstico):**
-```
-Primary:
-- PostgreSQL 12+ (Relacional)
-- Schema versioning com Flyway/Alembic
-
-Complementários (conforme necessidade):
-- Redis 6+ (Cache/Sessions)
-- Elasticsearch 7+ (Search/Audit Logs)
-- Message Queue: RabbitMQ / Kafka (se needed)
+componentes_comuns:
+  database:
+    - Escolher: PostgreSQL, MySQL, SQL Server, Oracle, etc
+    - ORM/query builder da escolha do time
+    - Schema versioning (Flyway, Liquibase, Alembic, etc)
+  
+  cache_opcional:
+    - Escolher se necessário: Redis, Memcached, etc
+  
+  search_opcional:
+    - Escolher se necessário: Elasticsearch, Solr, etc
+  
+  queue_opcional:
+    - Escolher se necessário: RabbitMQ, Kafka, SQS, etc
+  
+  containerization:
+    - Docker (recomendado)
+    - Orquestração: Kubernetes, Docker Compose, etc
 ```
 
 **DEPLOYMENT (Agnóstico):**
 ```
 Opções:
-1. Docker + Kubernetes (Produção)
-2. Docker + Docker Compose (Staging)
-3. AWS / Google Cloud / Azure (PaaS)
-4. Vercel (Next.js/Nuxt)
-5. Railway / Render (Simpler PaaS)
+1. Conteineres (Docker + Kubernetes/Docker Compose)
+2. Cloud Platforms (AWS, Azure, GCP)
+3. PaaS simplificados (Railway, Render, Fly.io, etc.)
+4. Servidores tradicionais (VPS, bare metal)
 
 CI/CD:
 - GitHub Actions (se GitHub)
 - GitLab CI (se GitLab)
-- Jenkins (self-hosted)
+- Azure DevOps
+- Jenkins / CircleCI (auto-hospedado)
 ```
 
 ### Estrutura de Pastas - Padrão Agnóstico (Aplicável a Qualquer Stack)
@@ -695,7 +574,7 @@ src/
 1. Criar repositório com stack escolhida
 2. Setup auth com Platform Authentication
 3. Implementar primeiro componente SDS
-4. Conectar ao PostgreSQL
+4. Conectar ao banco de dados escolhido
 5. Setup CI/CD pipeline
 
 ### Semana 2-3
@@ -780,16 +659,17 @@ Este **PRD completo** fornece todas as especificações necessárias para desenv
 ### Arquivos Criados:
 
 ```
-c:/Git/angular-components/
+PRD/
 ├── PRD-QUADRO-VAGAS-PARTE1.md (50KB)
 ├── PRD-QUADRO-VAGAS-PARTE2.md (80KB)
 ├── PRD-QUADRO-VAGAS-PARTE3.md (70KB)
 ├── PRD-QUADRO-VAGAS-PARTE4.md (85KB)
 ├── PRD-QUADRO-VAGAS-PARTE5.md (75KB)
 ├── PRD-QUADRO-VAGAS-PARTE6.md (65KB)
-└── PRD-QUADRO-VAGAS-PARTE7.md (60KB)
+├── PRD-QUADRO-VAGAS-PARTE7.md (60KB)
+└── PRD-QUADRO-VAGAS-PARTE8.md (45KB - LGPD)
 
-TOTAL: ~485KB de documentação técnica pronta para Lovable.dev
+TOTAL: ~530KB de documentação técnica pronta para desenvolvimento
 ```
 
 ---

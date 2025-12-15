@@ -1040,45 +1040,27 @@ Vagas Abertas (Últimos 12 meses)
 
 ## 🎨 IMPLEMENTAÇÃO AGNÓSTICA (Sem Framework Específico)
 
+> **NOTA:** Esta seção apresenta SUGESTÕES de arquitetura. Ferramentas de geração de código (Lovable, Bolt, v0, Windsurf, Cursor, Replit Agent, etc) têm TOTAL AUTONOMIA para escolher stack, frameworks e padrões que julgarem mais adequados.
+
 ### Stack Recomendado (LIVRE ESCOLHA)
 
-Equipe pode escolher baseado em expertise:
+Equipe/ferramenta pode escolher qualquer framework/tecnologia baseado em expertise:
 
-**Opção 1: React.js**
-- Componentização nativa
-- Ecossistema de UI libraries (Material-UI, Chakra, etc)
-- State management: Redux, Zustand, Context API
-- Recomendado para: Equipes experientes em React
+**Critérios de Seleção:**
+- Componentização e reusabilidade
+- Ecossistema de bibliotecas UI
+- State management adequado
+- Curva de aprendizado da equipe
+- Performance e SEO requeridos
+- Suporte a integração Platform
+- Cross-platform se necessário
 
-**Opção 2: Vue 3**
-- Curva de aprendizado menor
-- Reatividade nativa
-- Composables elegantes
-- Recomendado para: Agilidade + simplicidade
-
-**Opção 3: Angular 14+**
-- Full-featured framework
-- TypeScript nativo
-- Dependency injection poderoso
-- Recomendado para: Projetos enterprise
-
-**Opção 4: Next.js / Nuxt**
-- SSR/SSG capabilities
-- Better SEO
-- API routes integradas
-- Recomendado para: Apps com backend integrado
-
-**Opção 5: Flutter Web**
-- Cross-platform (mobile + web)
-- Performance nativa
-- Hot reload
-- Recomendado para: Apps multi-plataforma
-
-**Opção 6: Plain HTML/CSS/JS**
-- Zero dependências
-- Máximo controle
-- Peso mínimo
-- Recomendado para: Máxima simplicity
+**Tipos de Arquitetura (Agnósticos):**
+- **SPA (Single Page Application):** Interatividade rica, client-side rendering
+- **SSR (Server-Side Rendering):** SEO, performance inicial otimizada
+- **SSG (Static Site Generation):** Performance máxima para conteúdo estático
+- **Cross-platform:** Reuso de código web/mobile/desktop
+- **Vanilla/Lightweight:** Controle total, dependências mínimas
 
 ### Diretório de Estilos (Agnóstico)
 

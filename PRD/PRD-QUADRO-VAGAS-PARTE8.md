@@ -1,6 +1,8 @@
 # PRD - SISTEMA DE GESTÃO DE QUADRO DE LOTAÇÃO
 ## PARTE 8: ADEQUAÇÃO À LGPD (LEI GERAL DE PROTEÇÃO DE DADOS)
 
+> **NOTA:** Especificações técnicas são agnósticas. Ferramentas de geração de código (Lovable, Bolt, v0, etc) podem implementar requisitos LGPD usando qualquer stack/padrão que preferirem, desde que atendam aos requisitos legais.
+
 ---
 
 ## 📋 INFORMAÇÕES DO DOCUMENTO

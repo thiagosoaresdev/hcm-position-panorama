@@ -1,6 +1,8 @@
 # PRD - SISTEMA DE GESTÃO DE QUADRO DE LOTAÇÃO
 ## PARTE 5: INTEGRAÇÕES TÉCNICAS E ESPECIFICAÇÕES DE APIS
 
+> **NOTA:** Todas as tecnologias de dados mencionadas (PostgreSQL, Redis, Elasticsearch, etc) são apenas SUGESTÕES. Ferramentas como Lovable, Bolt, v0 podem escolher qualquer stack que preferirem.
+
 ---
 
 ## 🔗 ARQUITETURA DE INTEGRAÇÕES
@@ -122,11 +124,10 @@ HTTP_Interceptor:
     
     return error
 
-# Aplicar em:
-# - Angular: HttpInterceptor
-# - React: Axios interceptor / Fetch wrapper
-# - Vue: Axios interceptor
-# - Vanilla JS: Fetch API wrapper
+# Aplicar em qualquer framework:
+# - Interceptor HTTP do framework escolhido
+# - Middleware de requisições
+# - Wrapper de cliente HTTP
 ```
 
 ### 1.5 Logout
@@ -336,11 +337,10 @@ Route_Protection:
     metadata:
       permission: "quadro_vagas:propostas:approve_rh"
 
-# Implementar em:
-# - Angular: CanActivate
-# - React: ProtectedRoute component
-# - Vue: Navigation Guards (beforeEnter)
-# - Next.js: Middleware
+# Implementar conforme padrão do framework escolhido:
+# - Guards/Middlewares de rota
+# - Protected routes
+# - Navigation guards
 ```
 
 ### 2.6 Integração em Componentes
@@ -376,11 +376,10 @@ function renderButton():
   else:
     return null
 
-# Implementar em:
-# - React: {hasPermission() && <Button/>}
-# - Vue: v-if="hasPermission()"
-# - Angular: *ngIf="hasPermission()"
-# - Vanilla: CSS display: none
+# Implementar renderização condicional conforme framework:
+# - Diretivas/operadores condicionais do framework
+# - JavaScript condicional
+# - CSS display: none
 ```
 
 ---
@@ -903,11 +902,10 @@ Scheduled_Job:
     success: "Market data imported successfully"
     error: "Error importing market data: {error_message}"
 
-# Implementar com:
-# - Node.js: node-cron, agenda, bull
-# - Python: APScheduler, Celery
-# - Java: Quartz, Spring @Scheduled
-# - Serverless: AWS Lambda + EventBridge, Azure Functions + Timer
+# Implementar com biblioteca/ferramenta de agendamento:
+# - Cron libraries (node-cron, APScheduler, Quartz, etc.)
+# - Task schedulers do framework
+# - Serverless functions com timer (Lambda, Functions, etc.)
 ```
 
 ---
@@ -929,12 +927,11 @@ DADOS HISTÓRICOS
 ├─ Crescimento histórico
 └─ Turnover por cargo
       ↓
-PLATAFORMA ML (Escolher uma):
-├─ BigQuery ML (Google Cloud)
-├─ Azure Machine Learning
-├─ AWS SageMaker
-├─ Python (scikit-learn, TensorFlow, PyTorch)
-└─ R, Julia, ou outra plataforma
+PLATAFORMA ML (Escolher conforme stack):
+├─ Serviços cloud (BigQuery ML, Azure ML, AWS SageMaker)
+├─ Bibliotecas open-source (scikit-learn, TensorFlow, PyTorch, etc.)
+├─ Plataformas self-hosted
+└─ Soluções enterprise
       ↓
 MODELO TREINADO
 ├─ Input: Cargo, Período
@@ -979,11 +976,11 @@ EXIBIÇÃO NO DASHBOARD:
 
 ### 6.4 Exemplo de Implementação (BigQuery ML)
 
-**Nota:** Este é apenas UM exemplo. Pode ser implementado com qualquer plataforma ML.
+**Nota:** Este é apenas UM exemplo usando BigQuery ML.
+**Pode ser adaptado para qualquer plataforma ML (Azure ML, AWS SageMaker, bibliotecas open-source, etc.)**
 
 ```sql
 -- EXEMPLO usando BigQuery ML (Google Cloud)
--- Pode ser adaptado para Azure ML, AWS SageMaker, Python, etc.
 
 -- Modelo de Previsão de Demanda
 CREATE OR REPLACE MODEL `projeto.dataset.predicao_vagas`
